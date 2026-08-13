@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "OMEGA COCKTAIL.CO"
+description = "A premium, responsive website for Omega Cocktail Co. showcasing cocktail bar services, cocktail syrups, the team behind the business, and source-accurate contact information."
+version = "1.0.0"
+id = "artifacts/omega-cocktail"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19821
+
+[services.development]
+run = "pnpm --filter @workspace/omega-cocktail run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/omega-cocktail", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/omega-cocktail/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19821"
+BASE_PATH = "/"

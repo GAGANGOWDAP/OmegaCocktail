@@ -1,0 +1,777 @@
+# Build OMEGA COCKTAIL.CO — Premium Cocktail & Bar Services Website
+
+Build a complete, clean, responsive website for:
+
+**OMEGA COCKTAIL.CO**
+
+The website must have a **premium, elegant, modern black + gold visual identity**.
+
+## IMPORTANT — FOLLOW THESE RULES
+
+* Build the website efficiently to minimize Replit AI credits.
+* Do NOT over-engineer the project.
+* Do NOT add unnecessary features, pages, libraries, backend systems, authentication, databases, dashboards, payment systems, testimonials, blogs, or CMS.
+* Keep the code simple, modular, readable, and easy for me to edit manually later.
+* Reuse components instead of generating duplicate code.
+* Use local/static data for services and products.
+* Do not invent product information.
+* Do not invent people's information.
+* Do not invent contact details.
+* The uploaded PDF/resumes are the source of truth for product and profile information.
+* Do not generate fake reviews, ratings, prices, ingredients, certifications, awards, addresses, phone numbers, emails, or business claims.
+
+---
+
+# 1. TECHNOLOGY
+
+Use:
+
+* React
+* Vite
+* Tailwind CSS
+* React Router
+* Lucide React icons if icons are required
+* Framer Motion ONLY for a few subtle animations where genuinely useful
+
+Avoid adding any other dependency unless absolutely necessary.
+
+The website should work properly on:
+
+* Desktop
+* Laptop
+* Tablet
+* Mobile
+
+Use reusable React components.
+
+Recommended structure:
+
+```text
+src/
+├── assets/
+│   ├── images/
+│   └── products/
+├── components/
+│   ├── Navbar.jsx
+│   ├── Footer.jsx
+│   ├── ServiceCard.jsx
+│   ├── ProductCard.jsx
+│   └── SectionTitle.jsx
+├── pages/
+│   ├── Home.jsx
+│   ├── Services.jsx
+│   ├── ServiceDetail.jsx
+│   ├── Products.jsx
+│   ├── ProductDetail.jsx
+│   ├── About.jsx
+│   └── Contact.jsx
+├── data/
+│   ├── services.js
+│   └── products.js
+├── App.jsx
+├── main.jsx
+└── index.css
+```
+
+Keep the architecture simple.
+
+---
+
+# 2. WEBSITE TITLE
+
+The website/browser title must be exactly:
+
+**OMEGA COCKTAIL.CO**
+
+Do NOT display a subtitle or short description next to or underneath the website title/logo.
+
+Do NOT show text such as:
+
+* Premium Cocktail Services
+* Cocktail Consultancy
+* Bar Experts
+* Luxury Bar Services
+
+as part of the website title.
+
+The visible brand name should simply be:
+
+**OMEGA COCKTAIL.CO**
+
+You may use a small elegant typographic treatment such as:
+
+**OMEGA**
+**COCKTAIL.CO**
+
+but do not add a descriptive tagline to the title.
+
+---
+
+# 3. NAVIGATION BAR
+
+Create a clean premium sticky navbar.
+
+Navigation:
+
+**OMEGA COCKTAIL.CO**
+
+* Home
+* Services ▼
+* Products ▼
+* About
+* Contact Us
+
+### Services dropdown
+
+The Services dropdown must contain exactly:
+
+1. Bar Consultancy
+2. Bar Setup and Design
+3. Brewery Setup
+4. Event Organisation
+5. Bartending Services
+6. Staff Training
+7. All Services
+
+### Products dropdown
+
+The Products dropdown must contain:
+
+**Cocktail Syrups**
+
+Clicking Cocktail Syrups should take the user to the Cocktail Syrups product section/page.
+
+The navbar must be:
+
+* Minimal
+* Elegant
+* Responsive
+* Mobile friendly
+* Sticky
+* Black/dark background
+* Gold hover/active states
+
+On mobile, use a clean hamburger menu.
+
+---
+
+# 4. COLOR SYSTEM
+
+Use a restrained luxury palette:
+
+* Primary background: deep black
+* Secondary background: near-black / charcoal
+* Primary text: warm white
+* Accent: elegant metallic-style gold
+* Borders: subtle dark-gold/transparent gold
+* Cards: slightly lighter black/charcoal
+
+Do NOT make the website overly golden.
+
+Gold should be used mainly for:
+
+* Logo accents
+* Headings
+* Buttons
+* Hover states
+* Borders
+* Icons
+* Small decorative elements
+
+The overall appearance should remain predominantly black.
+
+---
+
+# 5. TYPOGRAPHY
+
+Use an elegant premium typography combination.
+
+Suggested:
+
+* Serif/display font for major headings
+* Clean modern sans-serif for body text and navigation
+
+Typography should feel:
+
+* Luxury
+* Premium
+* Sophisticated
+* Modern
+* Editorial
+
+Do not use oversized text everywhere.
+
+Maintain strong whitespace and hierarchy.
+
+---
+
+# 6. HOME PAGE
+
+Create a visually strong but clean hero section.
+
+Display:
+
+**OMEGA COCKTAIL.CO**
+
+Do NOT place a descriptive subtitle directly underneath the website title.
+
+Instead, use visual storytelling through:
+
+* Premium cocktail imagery
+* Bar imagery
+* Subtle gold details
+* Elegant typography
+* Clean spacing
+
+Add a primary CTA:
+
+**Explore Services**
+
+and a secondary CTA:
+
+**View Products**
+
+The hero should immediately communicate a premium cocktail/bar brand through visual design rather than a long paragraph.
+
+Use subtle entrance animation only.
+
+Do not add a video background because it can increase complexity and loading time.
+
+---
+
+# 7. SERVICES
+
+Create a dedicated Services page.
+
+Display the seven service categories:
+
+### 1. Bar Consultancy
+
+### 2. Bar Setup and Design
+
+### 3. Brewery Setup
+
+### 4. Event Organisation
+
+### 5. Bartending Services
+
+### 6. Staff Training
+
+### 7. All Services
+
+Create elegant service cards with:
+
+* Service name
+* Minimal icon
+* Short description
+* View Details button
+
+Descriptions should be concise and professional.
+
+Do not make exaggerated claims.
+
+Each service should have its own detail view/page.
+
+Use React Router for service detail pages.
+
+Example routes:
+
+```text
+/services
+/services/bar-consultancy
+/services/bar-setup-design
+/services/brewery-setup
+/services/event-organisation
+/services/bartending-services
+/services/staff-training
+/services/all-services
+```
+
+The All Services page should provide an overview of all services rather than duplicating seven large pages unnecessarily.
+
+---
+
+# 8. PRODUCTS
+
+Create a dedicated Products page.
+
+Main product category:
+
+**Cocktail Syrups**
+
+Create a Cocktail Syrups section/page.
+
+IMPORTANT:
+
+The uploaded PDF is the ONLY source of truth for the syrup products.
+
+From the uploaded PDF:
+
+1. Identify every syrup variety shown.
+2. Extract the exact product name.
+3. Extract the corresponding product image.
+4. Use the image belonging to that exact syrup.
+5. Extract relevant information/details from the PDF.
+6. Write a short, elegant product description using ONLY information available in the PDF.
+
+Do NOT invent:
+
+* Ingredients
+* Flavours
+* Sizes
+* Prices
+* Benefits
+* Manufacturing claims
+* Certifications
+* Shelf life
+* Nutritional information
+* Usage claims
+
+If something is not present in the PDF, leave it out.
+
+Do not alter product names unnecessarily.
+
+Do not create fictional products.
+
+---
+
+# 9. PRODUCT IMAGES
+
+Extract/use the actual syrup images from the uploaded PDF.
+
+Each syrup should appear as an individual product card.
+
+Product card layout:
+
+* Product image
+* Exact product name
+* Short description
+* View Details button
+
+The product images should:
+
+* Maintain their original proportions
+* Be high quality
+* Have a clean presentation
+* Have consistent card sizing
+* Work well on mobile
+
+Do not replace the PDF product images with random stock images.
+
+---
+
+# 10. PRODUCT DETAIL PAGE
+
+When a visitor clicks a syrup:
+
+Show:
+
+* Large product image
+* Exact product name
+* Short description
+* Relevant information extracted from the PDF
+
+Keep the page minimal and premium.
+
+Example structure:
+
+```text
+[Large Product Image]
+
+PRODUCT NAME
+
+Short description based strictly on the PDF.
+
+[Back to Cocktail Syrups]
+```
+
+Only show information that exists in the source PDF.
+
+---
+
+# 11. ABOUT PAGE
+
+Create a dedicated About page.
+
+IMPORTANT:
+
+Two resumes and photographs have been provided/uploaded.
+
+Use those files as the ONLY source of truth for the people/profile information.
+
+For each person:
+
+* Use the provided photograph.
+* Extract their name from the resume.
+* Extract their professional information from the resume.
+* Extract relevant experience/qualifications from the resume.
+* Present the information professionally.
+* Do not invent information.
+
+The About page should contain two individual profile sections/cards.
+
+Each profile should include:
+
+* Photograph
+* Name
+* Professional role/title if present in the resume
+* Short professional biography based on the resume
+* Relevant experience
+* Relevant qualifications where appropriate
+
+Also extract the available contact information from the resumes.
+
+Use the exact contact details found in the resumes.
+
+Do NOT fabricate missing contact information.
+
+---
+
+# 12. ABOUT PAGE DESIGN
+
+Make the About page feel premium and personal.
+
+Suggested structure:
+
+```text
+ABOUT OMEGA COCKTAIL.CO
+
+[Intro / brand section]
+
+[Person 1]
+Photo
+Name
+Professional information
+Experience
+
+[Person 2]
+Photo
+Name
+Professional information
+Experience
+
+[Contact information extracted from resumes]
+```
+
+Use elegant alternating layouts on desktop.
+
+On mobile, stack the sections vertically.
+
+Do not make the About page look like a generic corporate team page.
+
+---
+
+# 13. CONTACT PAGE
+
+Create a clean Contact Us page.
+
+Use contact details extracted from the uploaded resumes/source material.
+
+If email, phone number, address, website, or social information exists in the source documents, display it accurately.
+
+Do NOT invent missing details.
+
+Include a simple contact form with:
+
+* Name
+* Email
+* Phone
+* Message
+* Submit button
+
+The form does not need a backend.
+
+Use a simple frontend success state after submission.
+
+Do not create a database.
+
+Do not create authentication.
+
+---
+
+# 14. FOOTER
+
+Create a minimal premium footer.
+
+Include:
+
+**OMEGA COCKTAIL.CO**
+
+Navigation:
+
+* Home
+* Services
+* Products
+* About
+* Contact Us
+
+Include only social/contact information that actually exists in the provided source documents.
+
+Do not invent social media accounts.
+
+Add a simple copyright line.
+
+---
+
+# 15. UI STYLE
+
+The design should feel like a high-end cocktail consultancy/bar brand rather than a restaurant template.
+
+Visual direction:
+
+* Luxury
+* Minimal
+* Black
+* Gold
+* Editorial
+* Sophisticated
+* Modern
+* Spacious
+* Premium
+
+Use:
+
+* Thin borders
+* Subtle gold lines
+* Large quality imagery
+* Rounded corners only where appropriate
+* Elegant cards
+* Smooth hover states
+* Subtle shadows
+* Strong whitespace
+
+Avoid:
+
+* Excessive gradients
+* Neon colors
+* Excessive animations
+* Cartoon graphics
+* Generic restaurant UI
+* Excessive glassmorphism
+* Huge paragraphs
+* Too many buttons
+* Fake statistics
+* Fake testimonials
+* Fake reviews
+* Fake awards
+
+---
+
+# 16. ANIMATIONS
+
+Use animations sparingly.
+
+Allowed:
+
+* Fade-in
+* Slight upward reveal
+* Image hover zoom
+* Button hover
+* Dropdown transitions
+* Page transition
+
+Avoid:
+
+* Constant floating animations
+* Excessive parallax
+* Rotating objects
+* Heavy particle effects
+* Long loading animations
+
+The website must feel premium, not flashy.
+
+---
+
+# 17. RESPONSIVENESS
+
+Desktop:
+
+* Full navigation
+* Multi-column service/product grids
+* Large hero imagery
+* Spacious layout
+
+Tablet:
+
+* Adjust grid columns
+* Reduce typography
+* Maintain spacing
+
+Mobile:
+
+* Hamburger navigation
+* Dropdown/accordion navigation
+* Single-column cards
+* Proper image scaling
+* Large touch-friendly buttons
+* No horizontal scrolling
+
+Test all major pages at mobile width.
+
+---
+
+# 18. PERFORMANCE
+
+Keep the website lightweight.
+
+Important:
+
+* Optimize images extracted from the PDF.
+* Use lazy loading for product images where appropriate.
+* Do not add unnecessary libraries.
+* Do not use huge background videos.
+* Do not load unnecessary external assets.
+* Keep animations lightweight.
+* Reuse components.
+
+The purpose is to keep the project easy to modify and conserve Replit AI credits.
+
+---
+
+# 19. CODE QUALITY
+
+Use reusable components.
+
+For example:
+
+```jsx
+<ServiceCard />
+<ProductCard />
+<Navbar />
+<Footer />
+<SectionTitle />
+```
+
+Keep product data inside:
+
+```text
+src/data/products.js
+```
+
+Keep service data inside:
+
+```text
+src/data/services.js
+```
+
+This is important because I should be able to add/edit services and products later without changing the main UI code.
+
+---
+
+# 20. IMPORTANT SOURCE-DATA RULE
+
+Before writing product/profile content:
+
+### Product information
+
+Use the uploaded syrup PDF.
+
+### Person information
+
+Use the two uploaded resumes and photographs.
+
+Do not guess.
+
+Do not generate placeholder names if actual names are available.
+
+Do not generate fake product descriptions.
+
+Do not generate fake contact details.
+
+If the source contains information, use it accurately.
+
+If the source does not contain information, do not invent it.
+
+---
+
+# 21. SEO / BROWSER TITLE
+
+Set:
+
+```html
+<title>OMEGA COCKTAIL.CO</title>
+```
+
+Do not add a visible tagline to the title.
+
+The browser tab title must simply be:
+
+**OMEGA COCKTAIL.CO**
+
+---
+
+# 22. FINAL PAGE STRUCTURE
+
+Build these routes:
+
+```text
+/
+    Home
+
+/services
+    Services
+
+/services/bar-consultancy
+/services/bar-setup-design
+/services/brewery-setup
+/services/event-organisation
+/services/bartending-services
+/services/staff-training
+/services/all-services
+
+/products
+    Products
+
+/products/cocktail-syrups
+    Cocktail Syrups
+
+/products/cocktail-syrups/[product]
+    Individual Syrup
+
+/about
+    About
+
+/contact
+    Contact Us
+```
+
+---
+
+# 23. FINAL QUALITY CHECK
+
+Before finishing, verify:
+
+* [ ] Website name is exactly OMEGA COCKTAIL.CO
+* [ ] No descriptive subtitle is visible under the title/logo
+* [ ] Black + gold theme is consistent
+* [ ] Navbar works
+* [ ] Services dropdown works
+* [ ] Products dropdown works
+* [ ] All seven services are present
+* [ ] Cocktail Syrups category is present
+* [ ] Every syrup in the PDF is included
+* [ ] Exact syrup names are preserved
+* [ ] Correct PDF images are used
+* [ ] Product descriptions are based only on the PDF
+* [ ] Two people from the resumes are included
+* [ ] Correct photographs are used
+* [ ] Resume information is accurately extracted
+* [ ] Contact details are extracted accurately
+* [ ] No fake information has been added
+* [ ] Contact page works visually
+* [ ] Mobile navigation works
+* [ ] Website is responsive
+* [ ] No horizontal scrolling
+* [ ] No unnecessary features were added
+* [ ] Code is easy to edit
+* [ ] Browser title is exactly OMEGA COCKTAIL.CO
+
+## MOST IMPORTANT
+
+Build the website as a **clean, premium, production-quality foundation**, but keep the implementation simple so I can continue making changes in Replit without consuming unnecessary AI credits.
+
+Do not keep regenerating or rewriting the whole project for small changes.
+
+Use reusable components and centralized data so future modifications can be made easily.
+
+Do not add anything that I did not request unless it is necessary for the website to function correctly.
