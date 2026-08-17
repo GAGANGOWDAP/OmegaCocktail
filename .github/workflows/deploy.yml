@@ -43,7 +43,7 @@ jobs:
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./artifacts/omega-cocktail/dist/public
+          path: ./artifacts/omega-cocktail/dist
 
   deploy:
     needs: build
