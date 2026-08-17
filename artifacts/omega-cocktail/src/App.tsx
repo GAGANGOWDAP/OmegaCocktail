@@ -20,7 +20,7 @@ import NotFound from '@/pages/not-found';
 import { profiles, services, syrupItems, syrupNames, toSlug, type Service, type SyrupItem } from '@/data/site-data';
 
 const queryClient = new QueryClient();
-const syrupImage = '/assets/products/cocktail-syrup-range.png';
+const syrupImage = `${import.meta.env.BASE_URL}assets/products/cocktail-syrup-range.png`;
 
 function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
   const sizeClasses = {
@@ -33,7 +33,7 @@ function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
     <Link href="/" className="group inline-flex items-center gap-3" data-testid="link-logo">
       <div className={`relative grid ${sizeClasses} place-items-center rounded-full border border-primary/40 bg-secondary/80 p-0.5 shadow-sm transition-all duration-300 group-hover:border-primary group-hover:shadow-[0_0_14px_rgba(220,165,75,0.25)]`}>
         <img
-          src="/logo-gold.png"
+          src={`${import.meta.env.BASE_URL}logo.png`}
           alt="OMEGA Cocktails Bar Consultants Logo"
           className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
         />
