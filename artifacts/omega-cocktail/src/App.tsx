@@ -31,11 +31,11 @@ function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
 
   return (
     <Link href="/" className="group inline-flex items-center gap-3" data-testid="link-logo">
-      <div className={`relative grid ${sizeClasses} place-items-center rounded-full border border-primary/40 bg-secondary/80 p-0.5 shadow-sm transition-all duration-300 group-hover:border-primary group-hover:shadow-[0_0_14px_rgba(220,165,75,0.25)]`}>
+      <div className={`relative grid ${sizeClasses} shrink-0 place-items-center overflow-hidden rounded-full border border-primary/60 bg-black p-0.5 shadow-sm transition-all duration-300 group-hover:border-primary group-hover:shadow-[0_0_14px_rgba(220,165,75,0.3)]`}>
         <img
-          src={`${import.meta.env.BASE_URL}logo.png`}
+          src={`${import.meta.env.BASE_URL}logo-gold.png`}
           alt="OMEGA Cocktails Bar Consultants Logo"
-          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full rounded-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
       <span className="font-mono-ui text-[11px] leading-[1.15] tracking-[0.22em] text-foreground">
