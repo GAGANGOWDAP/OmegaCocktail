@@ -17,19 +17,30 @@ import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
-import { profiles, services, syrupNames, toSlug, type Service } from '@/data/site-data';
+import { profiles, services, syrupItems, syrupNames, toSlug, type Service, type SyrupItem } from '@/data/site-data';
 
 const queryClient = new QueryClient();
 const syrupImage = '/assets/products/cocktail-syrup-range.png';
 
-function Logo() {
+function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
+  const sizeClasses = {
+    sm: 'h-8 w-8',
+    md: 'h-10 w-10',
+    lg: 'h-14 w-14',
+  }[size];
+
   return (
     <Link href="/" className="group inline-flex items-center gap-3" data-testid="link-logo">
-      <span className="grid h-8 w-8 place-items-center border border-primary/60 text-primary transition-transform group-hover:rotate-45" aria-hidden="true">
-        <span className="-rotate-45 font-mono-ui text-[10px]">Ω</span>
-      </span>
-      <span className="font-mono-ui text-[11px] leading-[1.1] tracking-[0.22em] text-foreground">
-        OMEGA<br />COCKTAIL.CO
+      <div className={`relative grid ${sizeClasses} place-items-center rounded-full border border-primary/40 bg-secondary/80 p-0.5 shadow-sm transition-all duration-300 group-hover:border-primary group-hover:shadow-[0_0_14px_rgba(220,165,75,0.25)]`}>
+        <img
+          src="/logo-gold.png"
+          alt="OMEGA Cocktails Bar Consultants Logo"
+          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+      <span className="font-mono-ui text-[11px] leading-[1.15] tracking-[0.22em] text-foreground">
+        OMEGA<br />
+        <span className="font-medium text-primary">COCKTAIL.CO</span>
       </span>
     </Link>
   );
@@ -124,8 +135,7 @@ function Footer() {
           <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
             <a href="tel:+918971825137" className="hover:text-primary" data-testid="footer-phone-manoj">+91 8971825137</a>
             <a href="mailto:mjsince1987@gmail.com" className="break-all hover:text-primary" data-testid="footer-email-manoj">mjsince1987@gmail.com</a>
-            <a href="tel:9980841016" className="hover:text-primary" data-testid="footer-phone-suresh">9980841016</a>
-            <a href="mailto:sureshvat69@gmail.com" className="break-all hover:text-primary" data-testid="footer-email-suresh">sureshvat69@gmail.com</a>
+
           </div>
         </div>
       </div>
@@ -271,15 +281,77 @@ function SyrupImage({ index, alt }: { index: number; alt: string }) {
 }
 
 function SyrupsPage() {
+  const [search, setSearch] = useState('');
+
+  const filteredItems = syrupItems.filter(item =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.recipe.cocktailName.toLowerCase().includes(search.toLowerCase()) ||
+    item.recipe.ingredients.some(ing => ing.toLowerCase().includes(search.toLowerCase()))
+  );
+
   return (
     <div className="page-shell py-16 md:py-24">
-      <Link href="/products" className="inline-flex items-center gap-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-primary" data-testid="link-back-products"><ArrowLeft size={14} /> Products</Link>
-      <div className="mt-14 grid gap-12 md:grid-cols-[.8fr_1.2fr] md:items-end"><SectionHeading kicker="Cocktail Syrups / 21 varieties" title="Colour, held in reserve." body="The names below are transcribed from the supplied source sheet." /><div className="border border-primary/25 bg-black p-3"><img src={syrupImage} alt="Cocktail syrup range source sheet" className="max-h-[520px] w-full object-contain object-top" /></div></div>
+      <Link href="/products" className="inline-flex items-center gap-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-primary" data-testid="link-back-products">
+        <ArrowLeft size={14} /> Products
+      </Link>
+      <div className="mt-14 grid gap-12 md:grid-cols-[.8fr_1.2fr] md:items-end">
+        <SectionHeading
+          kicker="Cocktail Syrups / 21 Varieties & Classic Recipes"
+          title="Colour & Craft, held in reserve."
+          body="Each syrup in the OMEGA collection is paired with a signature classic cocktail recipe developed for precision, balance, and high-volume bar service."
+        />
+        <div className="border border-primary/25 bg-black p-3">
+          <img src={syrupImage} alt="Cocktail syrup range source sheet" className="max-h-[520px] w-full object-contain object-top" />
+        </div>
+      </div>
       <Rule />
+
+      {/* Filter / Search Bar */}
+      <div className="mb-10 flex flex-col gap-4 border-b border-border/80 pb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h2 className="font-display text-3xl">21 Classic Recipes & Syrups</h2>
+          <p className="mt-1 text-xs text-muted-foreground">Select any syrup to view full recipe measurements, preparation method, and garnish guidance.</p>
+        </div>
+        <input
+          type="text"
+          placeholder="Search syrup, cocktail, or spirit..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full border border-border bg-card px-4 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none sm:w-72"
+        />
+      </div>
+
       <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-        {syrupNames.map((name, index) => {
-          const slug = toSlug(name);
-          return <Link key={name} href={`/products/cocktail-syrups/${slug}`} className="group bg-card p-3 transition-colors hover:bg-[#1b1712]" data-testid={`card-product-${slug}`}><SyrupImage index={index} alt={`${name} shown in the supplied cocktail syrup range`} /><div className="flex items-center justify-between gap-3 px-2 pb-1 pt-5"><div><p className="font-mono-ui text-[9px] text-primary">SYRUP / {String(index + 1).padStart(2, '0')}</p><h2 className="mt-2 font-display text-3xl leading-none">{name}</h2></div><ArrowUpRight size={17} className="text-primary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" /></div></Link>;
+        {filteredItems.map((item) => {
+          const originalIndex = syrupItems.findIndex(s => s.slug === item.slug);
+          return (
+            <Link
+              key={item.slug}
+              href={`/products/cocktail-syrups/${item.slug}`}
+              className="group flex flex-col justify-between bg-card p-4 transition-colors hover:bg-[#1b1712]"
+              data-testid={`card-product-${item.slug}`}
+            >
+              <div>
+                <SyrupImage index={originalIndex} alt={`${item.name} shown in the supplied cocktail syrup range`} />
+                <div className="px-2 pt-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="font-mono-ui text-[9px] text-primary">SYRUP / {String(originalIndex + 1).padStart(2, '0')}</p>
+                    <ArrowUpRight size={17} className="text-primary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </div>
+                  <h3 className="mt-1.5 font-display text-3xl leading-none">{item.name}</h3>
+                  <div className="mt-4 border-t border-border/60 pt-3">
+                    <p className="font-mono-ui text-[9px] uppercase tracking-[0.15em] text-primary/90">Signature Serve</p>
+                    <p className="mt-1 font-display text-xl text-foreground transition-colors group-hover:text-primary">{item.recipe.cocktailName}</p>
+                    <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{item.recipe.method}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-5 flex items-center justify-between border-t border-border/40 px-2 pb-1 pt-3 font-mono-ui text-[10px] uppercase tracking-[0.14em] text-muted-foreground group-hover:text-foreground">
+                <span className="truncate pr-2">Garnish: {item.recipe.garnish}</span>
+                <span className="shrink-0 text-primary">View Recipe →</span>
+              </div>
+            </Link>
+          );
         })}
       </div>
     </div>
@@ -288,10 +360,89 @@ function SyrupsPage() {
 
 function ProductDetailPage() {
   const { product } = useParams<{ product: string }>();
-  const name = syrupNames.find((item) => toSlug(item) === product);
-  if (!name) return <NotFound />;
-  const index = syrupNames.indexOf(name);
-  return <div className="page-shell py-16 md:py-28"><Link href="/products/cocktail-syrups" className="inline-flex items-center gap-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-primary" data-testid="link-back-syrups"><ArrowLeft size={14} /> Cocktail Syrups</Link><div className="mt-14 grid gap-12 md:grid-cols-[1.05fr_.95fr] md:items-center"><div className="border border-primary/25 bg-black p-4"><SyrupImage index={index} alt={`${name} shown in the supplied cocktail syrup range`} /></div><div><p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">Cocktail Syrup / {String(index + 1).padStart(2, '0')}</p><h1 className="mt-6 font-display text-7xl leading-[.85] md:text-9xl">{name}</h1><Rule /><p className="max-w-md text-sm leading-7 text-muted-foreground">A variety shown in the supplied cocktail syrup source sheet.</p><div className="mt-9"><ArrowLink href="/products/cocktail-syrups">Back to the full range</ArrowLink></div></div></div></div>;
+  const syrup = syrupItems.find((item) => item.slug === product || toSlug(item.name) === product);
+  if (!syrup) return <NotFound />;
+
+  const index = syrupItems.indexOf(syrup);
+  const prevSyrup = syrupItems[(index - 1 + syrupItems.length) % syrupItems.length];
+  const nextSyrup = syrupItems[(index + 1) % syrupItems.length];
+
+  return (
+    <div className="page-shell py-16 md:py-28">
+      <Link href="/products/cocktail-syrups" className="inline-flex items-center gap-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-primary" data-testid="link-back-syrups">
+        <ArrowLeft size={14} /> Back to Cocktail Syrups
+      </Link>
+
+      <div className="mt-12 grid gap-12 lg:grid-cols-[.95fr_1.05fr] lg:items-start">
+        {/* Left column: Visual & syrup details */}
+        <div>
+          <div className="border border-primary/25 bg-black p-4">
+            <SyrupImage index={index} alt={`${syrup.name} shown in the supplied cocktail syrup range`} />
+          </div>
+          <div className="mt-6 border border-border bg-card p-6">
+            <p className="font-mono-ui text-[9px] uppercase tracking-[0.2em] text-primary">Range Index / {String(index + 1).padStart(2, '0')} of 21</p>
+            <h3 className="mt-2 font-display text-3xl">{syrup.name} Syrup</h3>
+            <p className="mt-3 text-xs leading-6 text-muted-foreground">
+              Formulated for maximum aroma, precise sweetness balance, and clean mixability across classical, contemporary, and high-volume beverage applications.
+            </p>
+          </div>
+        </div>
+
+        {/* Right column: Classic Cocktail Recipe */}
+        <div>
+          <p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">Classic Cocktail Recipe</p>
+          <h1 className="mt-3 font-display text-5xl leading-[.92] text-foreground md:text-7xl">{syrup.recipe.cocktailName}</h1>
+
+          <div className="mt-8 border border-primary/30 bg-card p-6 shadow-xl md:p-8">
+            {/* Ingredients */}
+            <div>
+              <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">Ingredients</p>
+              <ul className="mt-4 grid gap-3">
+                {syrup.recipe.ingredients.map((ingredient, i) => (
+                  <li key={i} className="flex items-center gap-3 border-b border-border/60 pb-2.5 text-sm md:text-base">
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                    <span className="text-foreground">{ingredient}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Method */}
+            <div className="mt-8">
+              <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">Preparation Method</p>
+              <p className="mt-3 border-l-2 border-primary bg-secondary/40 p-4 text-sm leading-7 text-foreground md:text-base">
+                {syrup.recipe.method}
+              </p>
+            </div>
+
+            {/* Garnish */}
+            <div className="mt-8 flex flex-col gap-4 border-t border-border/80 pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">Garnish</p>
+                <p className="mt-1 text-sm font-medium text-foreground">{syrup.recipe.garnish}</p>
+              </div>
+              <Link href="/contact" className="gold-button inline-flex items-center justify-center gap-2 border border-primary/60 px-4 py-2.5 font-mono-ui text-[9px] uppercase tracking-[0.18em] text-primary hover:bg-primary hover:text-primary-foreground">
+                Inquire for Bar Supply <ArrowUpRight size={13} />
+              </Link>
+            </div>
+          </div>
+
+          {/* Navigation between recipes */}
+          <div className="mt-10 flex items-center justify-between border-t border-border pt-6 font-mono-ui text-[10px] uppercase tracking-[0.16em]">
+            <Link href={`/products/cocktail-syrups/${prevSyrup.slug}`} className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
+              <ArrowLeft size={13} /> {prevSyrup.name}
+            </Link>
+            <Link href="/products/cocktail-syrups" className="text-muted-foreground transition-colors hover:text-primary">
+              All 21 Recipes
+            </Link>
+            <Link href={`/products/cocktail-syrups/${nextSyrup.slug}`} className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary">
+              {nextSyrup.name} <ArrowRight size={13} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function AboutPage() {
