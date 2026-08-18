@@ -20,7 +20,7 @@ export const services: Service[] = [
     name: 'Bar Setup and Design',
     slug: 'bar-setup-design',
     index: '02',
-    icon: '🏗️',
+    icon: '📐',
     description: 'Planning the physical bar around the way a team works and guests move.',
     detail: 'From the first layout conversation to a working bar environment, this service brings together practical planning, design coordination, and the details that support service.',
   },
