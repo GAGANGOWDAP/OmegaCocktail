@@ -427,7 +427,7 @@ function HeroSlideshow() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % slideshowImages.length);
-    }, 4000);
+    }, 900);
     return () => clearInterval(timer);
   }, []);
 
@@ -450,7 +450,7 @@ function HeroSlideshow() {
             key={src}
             src={src}
             alt={`OMEGA Studio Bar Craft ${idx + 1}`}
-            className={`absolute inset-0 h-full w-full object-cover object-center brightness-[.88] contrast-[1.05] transition-opacity duration-1000 ease-in-out ${
+            className={`absolute inset-0 h-full w-full object-cover object-center brightness-[.88] contrast-[1.05] transition-opacity duration-500 ease-in-out ${
               idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
           />
