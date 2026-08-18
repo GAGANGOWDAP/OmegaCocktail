@@ -414,12 +414,35 @@ function ServiceDetailPage() {
 }
 
 function ProductsPage() {
-  return <div className="page-shell py-20 md:py-28"><SectionHeading kicker="Products / 01" title="A range with room to play." body="Cocktail Syrups, shown exactly as supplied in the complete flavour range source sheet." /><div className="mt-14 grid gap-8 md:grid-cols-[1.05fr_.95fr] md:items-start"><Link href="/products/cocktail-syrups" className="image-lift border border-primary/25 bg-black p-4" data-testid="card-products-syrups"><img src={syrupImage} alt="Complete flavour range cocktail syrup source sheet" className="w-full" /></Link><div className="border-t border-primary/50 pt-6 md:mt-12"><p className="font-mono-ui text-[10px] uppercase tracking-[0.24em] text-primary">01 / Cocktail Syrups</p><h2 className="mt-5 font-display text-5xl leading-none">The complete<br /><em>flavour range.</em></h2><p className="mt-6 max-w-md text-sm leading-7 text-muted-foreground">Twenty-one varieties shown on the supplied product source sheet. Browse the collection by name.</p><div className="mt-8"><ArrowLink href="/products/cocktail-syrups">View the range</ArrowLink></div></div></div></div>;
+  return (
+    <div className="page-shell py-20 md:py-28">
+      <SectionHeading kicker="Products / 01" title="A range with room to play." body="Cocktail Syrups, shown in the complete flavour range collection." />
+      <div className="mt-14 grid gap-8 md:grid-cols-[1.05fr_.95fr] md:items-start">
+        <div className="border border-primary/20 bg-card p-12 text-center min-h-[300px] flex flex-col items-center justify-center">
+          <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">OMEGA COCKTAIL SYRUPS</p>
+          <h3 className="mt-3 font-display text-3xl text-foreground">21 Flavour Range</h3>
+          <p className="mt-2 text-xs text-muted-foreground">Product visuals pending update</p>
+        </div>
+        <div className="border-t border-primary/50 pt-6 md:mt-12">
+          <p className="font-mono-ui text-[10px] uppercase tracking-[0.24em] text-primary">01 / Cocktail Syrups</p>
+          <h2 className="mt-5 font-display text-5xl leading-none">
+            The complete<br />
+            <em>flavour range.</em>
+          </h2>
+          <p className="mt-6 max-w-md text-sm leading-7 text-muted-foreground">
+            Twenty-one varieties crafted for precision, balance, and high-volume bar service. Browse the collection by name.
+          </p>
+          <div className="mt-8">
+            <ArrowLink href="/products/cocktail-syrups">View the range</ArrowLink>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function SyrupImage({ index, alt }: { index: number; alt: string }) {
-  const positions = ['12% 14%', '30% 14%', '48% 14%', '67% 14%', '86% 14%', '20% 44%', '40% 44%', '60% 44%', '80% 44%', '28% 72%', '48% 72%', '69% 72%', '88% 72%'];
-  return <div className="h-52 overflow-hidden bg-black sm:h-60"><img src={syrupImage} alt={alt} className="h-full w-full scale-[2.8] object-cover" style={{ objectPosition: positions[index % positions.length] }} /></div>;
+  return null;
 }
 
 function getSyrupCategories(syrup: SyrupItem): string[] {
@@ -481,19 +504,12 @@ function SyrupsPage() {
       </Link>
 
       {/* Hero Section */}
-      <div className="mt-10 grid gap-12 md:grid-cols-[.85fr_1.15fr] md:items-center">
+      <div className="mt-10 max-w-3xl">
         <SectionHeading
           kicker="Cocktail Syrups / 21 Varieties & Classic Recipes"
           title="Colour & Craft, held in reserve."
           body="Each syrup in the OMEGA collection is paired with a signature classic cocktail recipe developed for precision, balance, and high-volume bar service."
         />
-        <div className="overflow-hidden border border-primary/25 bg-black p-4 shadow-xl">
-          <img
-            src={syrupImage}
-            alt="Cocktail syrup range source sheet"
-            className="max-h-[480px] w-full object-contain object-top brightness-95 transition-transform duration-700 hover:scale-[1.01]"
-          />
-        </div>
       </div>
 
       <Rule />
@@ -641,16 +657,8 @@ function SyrupsPage() {
                     {item.name}
                   </h3>
 
-                  {/* Existing Product Visual */}
-                  <div className="mt-4 overflow-hidden border border-border/50 bg-black/60 transition-colors group-hover:border-primary/30">
-                    <SyrupImage
-                      index={originalIndex}
-                      alt={`${item.name} shown in the supplied cocktail syrup range`}
-                    />
-                  </div>
-
                   {/* Signature Serve & Cocktail Info */}
-                  <div className="mt-5 border-t border-border/60 pt-4">
+                  <div className="mt-4 border-t border-border/60 pt-4">
                     <span className="font-mono-ui text-[9px] font-semibold uppercase tracking-[0.2em] text-primary/90">
                       SIGNATURE SERVE
                     </span>
@@ -702,15 +710,12 @@ function ProductDetailPage() {
       </Link>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-[.95fr_1.05fr] lg:items-start">
-        {/* Left column: Visual & syrup details */}
+        {/* Left column: Syrup details */}
         <div>
-          <div className="border border-primary/25 bg-black p-4">
-            <SyrupImage index={index} alt={`${syrup.name} shown in the supplied cocktail syrup range`} />
-          </div>
-          <div className="mt-6 border border-border bg-card p-6">
+          <div className="border border-border bg-card p-8">
             <p className="font-mono-ui text-[9px] uppercase tracking-[0.2em] text-primary">Range Index / {String(index + 1).padStart(2, '0')} of 21</p>
-            <h3 className="mt-2 font-display text-3xl">{syrup.name} Syrup</h3>
-            <p className="mt-3 text-xs leading-6 text-muted-foreground">
+            <h3 className="mt-2 font-display text-4xl">{syrup.name} Syrup</h3>
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
               Formulated for maximum aroma, precise sweetness balance, and clean mixability across classical, contemporary, and high-volume beverage applications.
             </p>
           </div>
