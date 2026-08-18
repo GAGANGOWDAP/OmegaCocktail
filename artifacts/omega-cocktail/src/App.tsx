@@ -833,8 +833,194 @@ function Profile({ profile, reverse }: { profile: typeof profiles[number]; rever
 
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
-  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSubmitted(true); };
-  return <div className="page-shell py-20 md:py-28"><div className="grid gap-16 md:grid-cols-[.8fr_1.2fr]"><div><SectionHeading kicker="Contact / The next pour" title="Tell us about the room." body="Share the shape of your project and the studio will have a place to start." /><div className="mt-12 grid gap-6 border-t border-border pt-7 text-sm text-muted-foreground"><a href="tel:+918971825137" className="flex items-start gap-3 hover:text-primary" data-testid="contact-phone-manoj"><Phone size={15} className="mt-1 text-primary" />+91 8971825137</a><a href="mailto:mjsince1987@gmail.com" className="flex items-start gap-3 break-all hover:text-primary" data-testid="contact-email-manoj"><Mail size={15} className="mt-1 text-primary" />mjsince1987@gmail.com</a><p className="flex items-start gap-3"><MapPin size={15} className="mt-1 text-primary" />No 6, RA Road, Ejipura, Bengaluru-560047</p></div></div><div className="border border-border bg-card p-6 md:p-10">{submitted ? <div className="flex min-h-[440px] flex-col items-start justify-center"><div className="grid h-12 w-12 place-items-center border border-primary text-primary"><Check size={22} /></div><p className="mt-8 font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">Message received</p><h2 className="mt-4 font-display text-5xl leading-none">The bar is<br /><em>open.</em></h2><p className="mt-6 max-w-sm text-sm leading-7 text-muted-foreground">Thank you for getting in touch. Your message has been noted by the studio.</p><button type="button" onClick={() => setSubmitted(false)} className="mt-8 border-b border-primary/50 pb-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-primary" data-testid="button-send-another">Send another message</button></div> : <form onSubmit={submit} className="grid gap-6" data-testid="form-contact"><div><label htmlFor="name" className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Name</label><input id="name" name="name" required className="mt-3 w-full border-b border-border bg-transparent px-0 py-3 text-sm outline-none transition-colors focus:border-primary" data-testid="input-name" /></div><div><label htmlFor="email" className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Email</label><input id="email" name="email" type="email" required className="mt-3 w-full border-b border-border bg-transparent px-0 py-3 text-sm outline-none transition-colors focus:border-primary" data-testid="input-email" /></div><div><label htmlFor="phone" className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Phone</label><input id="phone" name="phone" className="mt-3 w-full border-b border-border bg-transparent px-0 py-3 text-sm outline-none transition-colors focus:border-primary" data-testid="input-phone" /></div><div><label htmlFor="message" className="font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground">Message</label><textarea id="message" name="message" required rows={5} className="mt-3 w-full resize-none border-b border-border bg-transparent px-0 py-3 text-sm outline-none transition-colors focus:border-primary" data-testid="input-message" /></div><button type="submit" className="gold-button mt-3 inline-flex items-center justify-center gap-3 bg-primary px-5 py-4 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-primary-foreground hover:bg-primary/85" data-testid="button-submit-contact">Send message <ArrowUpRight size={15} /></button></form>}</div></div></div>;
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="page-shell py-20 md:py-28">
+      <div className="grid gap-12 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
+        {/* Left Column: Heading & Contact Info */}
+        <div className="flex flex-col justify-between">
+          <div>
+            <div className="space-y-4">
+              <p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">
+                CONTACT / THE NEXT POUR
+              </p>
+              <h1 className="font-display text-4xl leading-[1.05] text-foreground md:text-5xl lg:text-6xl">
+                Tell us about the room.
+              </h1>
+              <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground/90">
+                Tell us what you’re building, and let’s create a space worth remembering.
+              </p>
+            </div>
+
+            {/* Contact Details List */}
+            <div className="mt-12 space-y-6 border-t border-border/80 pt-8">
+              <a
+                href="tel:+918971825137"
+                className="group flex items-start gap-4 text-sm text-foreground/90 transition-colors hover:text-primary"
+                data-testid="contact-phone-manoj"
+              >
+                <div className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-primary/30 bg-primary/10 text-primary transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Phone size={16} />
+                </div>
+                <div>
+                  <p className="font-mono-ui text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70">Phone</p>
+                  <p className="mt-0.5 font-medium tracking-wide">+91 8971825137</p>
+                </div>
+              </a>
+
+              <a
+                href="mailto:mjsince1987@gmail.com"
+                className="group flex items-start gap-4 text-sm text-foreground/90 transition-colors hover:text-primary"
+                data-testid="contact-email-manoj"
+              >
+                <div className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-primary/30 bg-primary/10 text-primary transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground">
+                  <Mail size={16} />
+                </div>
+                <div>
+                  <p className="font-mono-ui text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70">Email</p>
+                  <p className="mt-0.5 font-medium break-all">mjsince1987@gmail.com</p>
+                </div>
+              </a>
+
+              <div className="flex items-start gap-4 text-sm text-foreground/90">
+                <div className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+                  <MapPin size={16} />
+                </div>
+                <div>
+                  <p className="font-mono-ui text-[9px] uppercase tracking-[0.18em] text-muted-foreground/70">Studio Location</p>
+                  <p className="mt-0.5 font-medium leading-relaxed">No 6, RA Road, Ejipura, Bengaluru-560047</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Form Container */}
+        <div className="rounded-sm border border-border/80 bg-card/90 p-8 shadow-xl md:p-10">
+          {submitted ? (
+            <div className="flex min-h-[440px] flex-col items-start justify-center">
+              <div className="grid h-12 w-12 place-items-center border border-primary text-primary">
+                <Check size={22} />
+              </div>
+              <p className="mt-8 font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">Message received</p>
+              <h2 className="mt-4 font-display text-5xl leading-none">
+                The bar is<br /><em>open.</em>
+              </h2>
+              <p className="mt-6 max-w-sm text-sm leading-7 text-muted-foreground">
+                Thank you for getting in touch. Your message has been noted by the studio.
+              </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                className="mt-8 border-b border-primary/50 pb-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-primary hover:border-primary hover:text-foreground transition-colors"
+                data-testid="button-send-another"
+              >
+                Send another message
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={submit} className="grid gap-6" data-testid="form-contact">
+              {/* NAME Field */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/80"
+                >
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Your full name"
+                  className="mt-2.5 w-full border-b border-border/80 bg-transparent px-0 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all duration-300 focus:border-primary focus:ring-0"
+                  data-testid="input-name"
+                />
+              </div>
+
+              {/* EMAIL Field */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/80"
+                >
+                  Email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="you@example.com"
+                  className="mt-2.5 w-full border-b border-border/80 bg-transparent px-0 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all duration-300 focus:border-primary focus:ring-0"
+                  data-testid="input-email"
+                />
+              </div>
+
+              {/* PHONE Field */}
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/80"
+                >
+                  Phone
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  placeholder="+91 XXXXX XXXXX"
+                  className="mt-2.5 w-full border-b border-border/80 bg-transparent px-0 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all duration-300 focus:border-primary focus:ring-0"
+                  data-testid="input-phone"
+                />
+              </div>
+
+              {/* MESSAGE Field */}
+              <div>
+                <label
+                  htmlFor="message"
+                  className="font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground/80"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={4}
+                  placeholder="Tell us about your project..."
+                  className="mt-2.5 w-full resize-none border-b border-border/80 bg-transparent px-0 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all duration-300 focus:border-primary focus:ring-0"
+                  data-testid="input-message"
+                />
+              </div>
+
+              {/* Send Message Button & Response Line */}
+              <div className="mt-2">
+                <button
+                  type="submit"
+                  className="gold-button group inline-flex w-full items-center justify-center gap-3 bg-primary px-6 py-4 font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary-foreground transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_4px_20px_rgba(220,165,75,0.2)] active:scale-[0.99] sm:w-auto"
+                  data-testid="button-submit-contact"
+                >
+                  <span>Send message</span>
+                  <ArrowUpRight
+                    size={15}
+                    className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
+                  />
+                </button>
+
+                <p className="mt-4 font-mono-ui text-[9px] uppercase tracking-[0.15em] text-muted-foreground/70">
+                  We usually respond within 24 hours.
+                </p>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Router() {
