@@ -289,7 +289,7 @@ function HomePage() {
       <section className="border-y border-border/80 bg-secondary/35 py-20 md:py-28">
         <div className="page-shell">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><SectionHeading kicker="The work" title="What we bring to the bar." body="Seven ways to enter the studio. One clear standard: make every decision count." /><ArrowLink href="/services" light>See all services</ArrowLink></div>
-          <div className="mt-14 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-4">
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.slice(0, 4).map((service) => <ServiceCard key={service.slug} service={service} />)}
           </div>
         </div>
