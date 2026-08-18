@@ -237,11 +237,8 @@ function HeroSlideshow() {
           <ArrowRight size={15} />
         </button>
 
-        {/* Bottom Bar: Indicators & Counter */}
-        <div className="absolute bottom-5 left-5 right-5 z-30 flex items-center justify-between">
-          <span className="font-mono-ui text-[9px] uppercase tracking-[0.2em] text-primary">
-            The studio / {String(currentIndex + 1).padStart(2, '0')} of {String(slideshowImages.length).padStart(2, '0')}
-          </span>
+        {/* Bottom Bar: Indicators */}
+        <div className="absolute bottom-5 left-5 right-5 z-30 flex items-center justify-end">
           <div className="flex items-center gap-1.5">
             {slideshowImages.map((_, idx) => (
               <button
