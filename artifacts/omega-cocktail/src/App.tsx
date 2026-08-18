@@ -427,9 +427,11 @@ function HeroSlideshow() {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % slideshowImages.length);
-    }, 900);
+    }, 1500);
     return () => clearInterval(timer);
   }, []);
+
+  const prevIndex = (currentIndex - 1 + slideshowImages.length) % slideshowImages.length;
 
   return (
     <div className="reveal reveal-delay-2 relative mx-auto w-full max-w-[520px]">
@@ -437,16 +439,25 @@ function HeroSlideshow() {
       <div className="absolute -right-5 -top-5 h-20 w-20 border-r border-t border-primary/60" />
       
       <div className="image-lift relative aspect-[.76] overflow-hidden bg-secondary border border-primary/20 shadow-2xl">
-        {slideshowImages.map((src, idx) => (
-          <img
-            key={src}
-            src={src}
-            alt={`OMEGA Studio Bar Craft ${idx + 1}`}
-            className={`absolute inset-0 h-full w-full object-cover object-center brightness-[.88] contrast-[1.05] transition-all duration-700 ease-in-out ${
-              idx === currentIndex ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'
-            }`}
-          />
-        ))}
+        {slideshowImages.map((src, idx) => {
+          const isActive = idx === currentIndex;
+          const isPrev = idx === prevIndex;
+
+          return (
+            <img
+              key={src}
+              src={src}
+              alt={`OMEGA Studio Bar Craft ${idx + 1}`}
+              className={`absolute inset-0 h-full w-full object-cover object-center brightness-[.88] contrast-[1.05] transition-all duration-700 ease-in-out ${
+                isActive
+                  ? 'opacity-100 scale-100 z-10'
+                  : isPrev
+                  ? 'opacity-100 scale-[1.02] z-5'
+                  : 'opacity-0 scale-105 z-0'
+              }`}
+            />
+          );
+        })}
         
         <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/90 via-transparent to-black/20 pointer-events-none" />
 
