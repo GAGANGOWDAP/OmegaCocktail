@@ -431,14 +431,6 @@ function HeroSlideshow() {
     return () => clearInterval(timer);
   }, []);
 
-  const goToPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + slideshowImages.length) % slideshowImages.length);
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % slideshowImages.length);
-  };
-
   return (
     <div className="reveal reveal-delay-2 relative mx-auto w-full max-w-[520px]">
       <div className="absolute -inset-5 border border-primary/15" />
@@ -450,33 +442,15 @@ function HeroSlideshow() {
             key={src}
             src={src}
             alt={`OMEGA Studio Bar Craft ${idx + 1}`}
-            className={`absolute inset-0 h-full w-full object-cover object-center brightness-[.88] contrast-[1.05] transition-opacity duration-500 ease-in-out ${
-              idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            className={`absolute inset-0 h-full w-full object-cover object-center brightness-[.88] contrast-[1.05] transition-all duration-700 ease-in-out ${
+              idx === currentIndex ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0'
             }`}
           />
         ))}
         
         <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/90 via-transparent to-black/20 pointer-events-none" />
 
-        {/* Navigation Arrows */}
-        <button
-          type="button"
-          onClick={goToPrev}
-          className="absolute left-3 top-1/2 z-30 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full border border-primary/40 bg-black/60 text-primary backdrop-blur-sm transition-all hover:bg-primary hover:text-black"
-          aria-label="Previous slide"
-        >
-          <ArrowLeft size={15} />
-        </button>
-        <button
-          type="button"
-          onClick={goToNext}
-          className="absolute right-3 top-1/2 z-30 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full border border-primary/40 bg-black/60 text-primary backdrop-blur-sm transition-all hover:bg-primary hover:text-black"
-          aria-label="Next slide"
-        >
-          <ArrowRight size={15} />
-        </button>
-
-        {/* Bottom Bar: Indicators */}
+        {/* Bottom Bar: Slide Dot Indicators */}
         <div className="absolute bottom-5 left-5 right-5 z-30 flex items-center justify-end">
           <div className="flex items-center gap-1.5">
             {slideshowImages.map((_, idx) => (
@@ -484,7 +458,7 @@ function HeroSlideshow() {
                 key={idx}
                 type="button"
                 onClick={() => setCurrentIndex(idx)}
-                className={`h-1.5 transition-all duration-300 rounded-full ${
+                className={`h-1.5 transition-all duration-500 rounded-full ${
                   idx === currentIndex ? 'w-5 bg-primary' : 'w-1.5 bg-primary/40 hover:bg-primary/70'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
