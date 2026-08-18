@@ -4,7 +4,7 @@ export type Service = {
   index: string;
   description: string;
   detail: string;
-  icon: string;
+  icon?: string;
 };
 
 export const services: Service[] = [
@@ -324,6 +324,6 @@ export const profiles = [
       'Coverage: Karnataka, Tamil Nadu, Andhra Pradesh, Kerala.',
       'Service lines include acquisition consulting, operations management, development consulting, and project consulting & licensing.',
     ],
-    contact: ['Hospitality & Liaising Consultant', 'Coverage: KA, TN, AP, KL'],
+
   },
 ];

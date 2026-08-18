@@ -320,7 +320,7 @@ function HomePage() {
 function ServiceCard({ service }: { service: Service }) {
   return (
     <Link href={`/services/${service.slug}`} className="group flex min-h-[240px] flex-col justify-between bg-card p-6 transition-colors hover:bg-[#1b1712] md:p-7" data-testid={`card-service-${service.slug}`}>
-      <div className="flex items-start justify-between"><span className="font-mono-ui text-[10px] text-primary">{service.index}</span><span className="font-display text-3xl text-primary/75 transition-transform duration-300 group-hover:rotate-12">{service.icon}</span></div>
+      <div className="flex items-start justify-between"><span className="font-mono-ui text-[10px] text-primary">{service.index}</span>{service.icon && <span className="font-display text-3xl text-primary/75 transition-transform duration-300 group-hover:rotate-12">{service.icon}</span>}</div>
       <div><h3 className="max-w-[12rem] font-display text-3xl leading-none">{service.name}</h3><p className="mt-4 text-xs leading-6 text-muted-foreground">{service.description}</p><span className="mt-6 inline-flex items-center gap-2 font-mono-ui text-[9px] uppercase tracking-[0.18em] text-primary">View details <ArrowUpRight size={13} /></span></div>
     </Link>
   );
