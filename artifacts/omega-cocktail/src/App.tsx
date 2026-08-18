@@ -27,12 +27,12 @@ const syrupImage = `${import.meta.env.BASE_URL}assets/products/cocktail-syrup-ra
 function Logo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
   const sizeClasses = {
     sm: 'h-8 w-8',
-    md: 'h-10 w-10',
+    md: 'h-11 w-11',
     lg: 'h-14 w-14',
   }[size];
 
   return (
-    <Link href="/" className="group inline-flex items-center gap-3" data-testid="link-logo">
+    <Link href="/" className="group inline-flex items-center gap-3.5" data-testid="link-logo">
       <div className={`relative grid ${sizeClasses} shrink-0 place-items-center overflow-hidden rounded-full border border-primary/60 bg-black p-0.5 shadow-sm transition-all duration-300 group-hover:border-primary group-hover:shadow-[0_0_14px_rgba(220,165,75,0.3)]`}>
         <img
           src={`${import.meta.env.BASE_URL}logo-gold.png`}
@@ -60,54 +60,220 @@ function Header() {
     setProductOpen(false);
   };
 
+  const isHome = location === '/';
+  const isServices = location.startsWith('/services');
+  const isProducts = location.startsWith('/products');
+  const isAbout = location === '/about';
+  const isContact = location === '/contact';
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur-md">
-      <div className="page-shell flex min-h-[74px] items-center justify-between gap-5">
+    <header className="sticky top-0 z-40 border-b border-border/50 bg-background/95 backdrop-blur-md">
+      <div className="mx-auto flex min-h-[76px] max-w-7xl items-center justify-between gap-6 px-5 sm:px-8 md:px-10 lg:px-12">
         <Logo />
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary navigation">
-          <Link href="/" className="nav-link font-mono-ui text-[10px] uppercase tracking-[0.18em]" data-active={location === '/'} data-testid="link-home">Home</Link>
+        <nav className="hidden items-center gap-8 lg:gap-10 md:flex" aria-label="Primary navigation">
+          {/* HOME */}
+          <Link
+            href="/"
+            className={`font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${
+              isHome ? 'text-primary font-semibold' : 'text-foreground/80 hover:text-primary'
+            }`}
+            data-active={isHome}
+            data-testid="link-home"
+          >
+            Home
+          </Link>
+
+          {/* SERVICES DROPDOWN */}
           <div className="relative" onMouseEnter={() => setServiceOpen(true)} onMouseLeave={() => setServiceOpen(false)}>
-            <button type="button" onClick={() => setServiceOpen((value) => !value)} className="nav-link inline-flex items-center gap-1 font-mono-ui text-[10px] uppercase tracking-[0.18em]" aria-expanded={serviceOpen} data-testid="button-services-menu">
-              Services <ChevronDown size={13} strokeWidth={1.5} className={serviceOpen ? 'rotate-180 transition-transform' : 'transition-transform'} />
+            <button
+              type="button"
+              onClick={() => setServiceOpen((value) => !value)}
+              className={`inline-flex items-center gap-1.5 font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${
+                isServices ? 'text-primary font-semibold' : 'text-foreground/80 hover:text-primary'
+              }`}
+              aria-expanded={serviceOpen}
+              data-testid="button-services-menu"
+            >
+              <span>Services</span>
+              <ChevronDown
+                size={13}
+                strokeWidth={1.75}
+                className={`transition-transform duration-300 ${serviceOpen ? 'rotate-180 text-primary' : 'text-muted-foreground'}`}
+              />
             </button>
-            <div className={`absolute left-1/2 top-full mt-4 w-64 -translate-x-1/2 border border-border bg-card p-2 shadow-2xl transition-all duration-200 ${serviceOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'}`}>
+            <div
+              className={`absolute left-1/2 top-full mt-3 w-64 -translate-x-1/2 rounded-sm border border-border/80 bg-card/95 p-2 shadow-2xl backdrop-blur-md transition-all duration-200 ${
+                serviceOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'
+              }`}
+            >
               {services.map((service) => (
-                <Link key={service.slug} href={`/services/${service.slug}`} onClick={closeMenu} className="group flex items-center justify-between px-3 py-3 text-xs text-muted-foreground transition-colors hover:bg-secondary hover:text-primary" data-testid={`link-service-${service.slug}`}>
-                  <span>{service.name}</span><ArrowUpRight size={13} className="opacity-0 transition-opacity group-hover:opacity-100" />
+                <Link
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                  onClick={closeMenu}
+                  className="group flex items-center justify-between rounded-sm px-3.5 py-2.5 text-xs text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-primary"
+                  data-testid={`link-service-${service.slug}`}
+                >
+                  <span>{service.name}</span>
+                  <ArrowUpRight size={13} className="opacity-0 transition-opacity group-hover:opacity-100" />
                 </Link>
               ))}
             </div>
           </div>
+
+          {/* PRODUCTS DROPDOWN */}
           <div className="relative" onMouseEnter={() => setProductOpen(true)} onMouseLeave={() => setProductOpen(false)}>
-            <button type="button" onClick={() => setProductOpen((value) => !value)} className="nav-link inline-flex items-center gap-1 font-mono-ui text-[10px] uppercase tracking-[0.18em]" aria-expanded={productOpen} data-testid="button-products-menu">
-              Products <ChevronDown size={13} strokeWidth={1.5} className={productOpen ? 'rotate-180 transition-transform' : 'transition-transform'} />
+            <button
+              type="button"
+              onClick={() => setProductOpen((value) => !value)}
+              className={`inline-flex items-center gap-1.5 font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${
+                isProducts ? 'text-primary font-semibold' : 'text-foreground/80 hover:text-primary'
+              }`}
+              aria-expanded={productOpen}
+              data-testid="button-products-menu"
+            >
+              <span>Products</span>
+              <ChevronDown
+                size={13}
+                strokeWidth={1.75}
+                className={`transition-transform duration-300 ${productOpen ? 'rotate-180 text-primary' : 'text-muted-foreground'}`}
+              />
             </button>
-            <div className={`absolute left-1/2 top-full mt-4 w-52 -translate-x-1/2 border border-border bg-card p-2 shadow-2xl transition-all duration-200 ${productOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'}`}>
-              <Link href="/products/cocktail-syrups" onClick={closeMenu} className="group flex items-center justify-between px-3 py-3 text-xs text-muted-foreground transition-colors hover:bg-secondary hover:text-primary" data-testid="link-cocktail-syrups-menu">
-                Cocktail Syrups <ArrowUpRight size={13} className="opacity-0 transition-opacity group-hover:opacity-100" />
+            <div
+              className={`absolute left-1/2 top-full mt-3 w-56 -translate-x-1/2 rounded-sm border border-border/80 bg-card/95 p-2 shadow-2xl backdrop-blur-md transition-all duration-200 ${
+                productOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-2 opacity-0'
+              }`}
+            >
+              <Link
+                href="/products/cocktail-syrups"
+                onClick={closeMenu}
+                className="group flex items-center justify-between rounded-sm px-3.5 py-2.5 text-xs text-muted-foreground transition-colors hover:bg-secondary/70 hover:text-primary"
+                data-testid="link-cocktail-syrups-menu"
+              >
+                <span>Cocktail Syrups</span>
+                <ArrowUpRight size={13} className="opacity-0 transition-opacity group-hover:opacity-100" />
               </Link>
             </div>
           </div>
-          <Link href="/about" className="nav-link font-mono-ui text-[10px] uppercase tracking-[0.18em]" data-active={location === '/about'} data-testid="link-about">About</Link>
-          <Link href="/contact" className="gold-button border border-primary/60 px-4 py-2.5 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-primary hover:bg-primary hover:text-primary-foreground" data-testid="link-contact">Contact Us</Link>
+
+          {/* ABOUT */}
+          <Link
+            href="/about"
+            className={`font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors duration-200 ${
+              isAbout ? 'text-primary font-semibold' : 'text-foreground/80 hover:text-primary'
+            }`}
+            data-active={isAbout}
+            data-testid="link-about"
+          >
+            About
+          </Link>
+
+          {/* CONTACT US CTA */}
+          <Link
+            href="/contact"
+            className="gold-button inline-flex items-center justify-center rounded-sm border border-primary/70 bg-transparent px-4.5 py-2 font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-primary transition-all duration-200 ease-out hover:border-primary hover:bg-primary hover:text-primary-foreground hover:shadow-[0_2px_14px_rgba(220,165,75,0.22)] active:scale-[0.98]"
+            data-testid="link-contact"
+          >
+            Contact Us
+          </Link>
         </nav>
-        <button type="button" onClick={() => setMenuOpen((value) => !value)} className="grid h-11 w-11 place-items-center border border-border text-primary md:hidden" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} data-testid="button-mobile-menu">
+
+        {/* MOBILE MENU TOGGLE BUTTON */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen((value) => !value)}
+          className="grid h-10 w-10 place-items-center rounded-sm border border-border/80 text-primary transition-colors hover:border-primary md:hidden"
+          aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+          data-testid="button-mobile-menu"
+        >
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
-      <div className={`border-t border-border bg-card md:hidden ${menuOpen ? 'block' : 'hidden'}`}>
-        <nav className="page-shell flex flex-col gap-1 py-4" aria-label="Mobile navigation">
-          <Link href="/" onClick={closeMenu} className="border-b border-border/60 px-1 py-3 font-mono-ui text-[11px] uppercase tracking-[0.18em]" data-testid="mobile-link-home">Home</Link>
-          <button type="button" onClick={() => setServiceOpen((value) => !value)} className="flex items-center justify-between border-b border-border/60 px-1 py-3 text-left font-mono-ui text-[11px] uppercase tracking-[0.18em]" data-testid="mobile-button-services">
-            Services <ChevronDown size={14} className={serviceOpen ? 'rotate-180 transition-transform' : 'transition-transform'} />
+
+      {/* MOBILE NAVIGATION OVERLAY */}
+      <div className={`border-t border-border/80 bg-background/95 backdrop-blur-md md:hidden ${menuOpen ? 'block' : 'hidden'}`}>
+        <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4" aria-label="Mobile navigation">
+          <Link
+            href="/"
+            onClick={closeMenu}
+            className={`border-b border-border/60 px-1 py-3.5 font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors ${
+              isHome ? 'text-primary font-semibold' : 'text-foreground/90 hover:text-primary'
+            }`}
+            data-testid="mobile-link-home"
+          >
+            Home
+          </Link>
+
+          <button
+            type="button"
+            onClick={() => setServiceOpen((value) => !value)}
+            className={`flex items-center justify-between border-b border-border/60 px-1 py-3.5 text-left font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors ${
+              isServices ? 'text-primary font-semibold' : 'text-foreground/90 hover:text-primary'
+            }`}
+            data-testid="mobile-button-services"
+          >
+            <span>Services</span>
+            <ChevronDown size={14} className={`transition-transform duration-300 ${serviceOpen ? 'rotate-180 text-primary' : 'text-muted-foreground'}`} />
           </button>
-          {serviceOpen && <div className="grid grid-cols-1 border-b border-border/60 pb-2 pl-3">{services.map((service) => <Link key={service.slug} href={`/services/${service.slug}`} onClick={closeMenu} className="py-2.5 text-sm text-muted-foreground" data-testid={`mobile-link-service-${service.slug}`}>{service.name}</Link>)}</div>}
-          <button type="button" onClick={() => setProductOpen((value) => !value)} className="flex items-center justify-between border-b border-border/60 px-1 py-3 text-left font-mono-ui text-[11px] uppercase tracking-[0.18em]" data-testid="mobile-button-products">
-            Products <ChevronDown size={14} className={productOpen ? 'rotate-180 transition-transform' : 'transition-transform'} />
+          {serviceOpen && (
+            <div className="grid grid-cols-1 border-b border-border/60 pb-2 pl-3">
+              {services.map((service) => (
+                <Link
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                  onClick={closeMenu}
+                  className="py-2.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  data-testid={`mobile-link-service-${service.slug}`}
+                >
+                  {service.name}
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <button
+            type="button"
+            onClick={() => setProductOpen((value) => !value)}
+            className={`flex items-center justify-between border-b border-border/60 px-1 py-3.5 text-left font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors ${
+              isProducts ? 'text-primary font-semibold' : 'text-foreground/90 hover:text-primary'
+            }`}
+            data-testid="mobile-button-products"
+          >
+            <span>Products</span>
+            <ChevronDown size={14} className={`transition-transform duration-300 ${productOpen ? 'rotate-180 text-primary' : 'text-muted-foreground'}`} />
           </button>
-          {productOpen && <div className="border-b border-border/60 pb-2 pl-3"><Link href="/products/cocktail-syrups" onClick={closeMenu} className="block py-2.5 text-sm text-muted-foreground" data-testid="mobile-link-cocktail-syrups">Cocktail Syrups</Link></div>}
-          <Link href="/about" onClick={closeMenu} className="border-b border-border/60 px-1 py-3 font-mono-ui text-[11px] uppercase tracking-[0.18em]" data-testid="mobile-link-about">About</Link>
-          <Link href="/contact" onClick={closeMenu} className="mt-3 border border-primary px-4 py-3 text-center font-mono-ui text-[11px] uppercase tracking-[0.18em] text-primary" data-testid="mobile-link-contact">Contact Us</Link>
+          {productOpen && (
+            <div className="border-b border-border/60 pb-2 pl-3">
+              <Link
+                href="/products/cocktail-syrups"
+                onClick={closeMenu}
+                className="block py-2.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+                data-testid="mobile-link-cocktail-syrups"
+              >
+                Cocktail Syrups
+              </Link>
+            </div>
+          )}
+
+          <Link
+            href="/about"
+            onClick={closeMenu}
+            className={`border-b border-border/60 px-1 py-3.5 font-mono-ui text-[11px] uppercase tracking-[0.18em] transition-colors ${
+              isAbout ? 'text-primary font-semibold' : 'text-foreground/90 hover:text-primary'
+            }`}
+            data-testid="mobile-link-about"
+          >
+            About
+          </Link>
+
+          <Link
+            href="/contact"
+            onClick={closeMenu}
+            className="mt-4 inline-flex w-full items-center justify-center rounded-sm border border-primary bg-transparent px-4 py-3.5 text-center font-mono-ui text-[11px] uppercase tracking-[0.18em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+            data-testid="mobile-link-contact"
+          >
+            Contact Us
+          </Link>
         </nav>
       </div>
     </header>
