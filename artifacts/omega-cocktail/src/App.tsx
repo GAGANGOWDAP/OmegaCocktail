@@ -281,34 +281,105 @@ function Header() {
 }
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="mt-24 border-t border-border/80 bg-secondary/40">
-      <div className="page-shell grid gap-12 py-14 md:grid-cols-[1.2fr_.8fr_.8fr]">
+      <div className="page-shell grid gap-10 py-14 sm:gap-12 md:grid-cols-[1.3fr_1fr_1fr] lg:grid-cols-[1.4fr_1fr_1fr]">
+        {/* Column 1: Logo & Description */}
         <div>
           <Logo />
-          <p className="mt-6 max-w-xs text-sm leading-7 text-muted-foreground">A beverage studio for hospitality projects, bar teams, and considered events.</p>
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground/90">
+            A beverage studio for hospitality projects, bar teams, and considered events.
+          </p>
         </div>
+
+        {/* Column 2: Navigation Links */}
         <div>
-          <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">Navigate</p>
-          <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
-            <Link href="/" className="hover:text-primary" data-testid="footer-link-home">Home</Link>
-            <Link href="/services" className="hover:text-primary" data-testid="footer-link-services">Services</Link>
-            <Link href="/products" className="hover:text-primary" data-testid="footer-link-products">Products</Link>
-            <Link href="/about" className="hover:text-primary" data-testid="footer-link-about">About</Link>
-            <Link href="/contact" className="hover:text-primary" data-testid="footer-link-contact">Contact Us</Link>
+          <p className="font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
+            Navigate
+          </p>
+          <div className="mt-5 flex flex-col gap-3 text-sm">
+            <Link
+              href="/"
+              className="group relative inline-flex w-fit items-center text-muted-foreground transition-colors duration-200 hover:text-primary"
+              data-testid="footer-link-home"
+            >
+              <span>Home</span>
+              <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+            </Link>
+
+            <Link
+              href="/services"
+              className="group relative inline-flex w-fit items-center text-muted-foreground transition-colors duration-200 hover:text-primary"
+              data-testid="footer-link-services"
+            >
+              <span>Services</span>
+              <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+            </Link>
+
+            <Link
+              href="/products"
+              className="group relative inline-flex w-fit items-center text-muted-foreground transition-colors duration-200 hover:text-primary"
+              data-testid="footer-link-products"
+            >
+              <span>Products</span>
+              <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+            </Link>
+
+            <Link
+              href="/about"
+              className="group relative inline-flex w-fit items-center text-muted-foreground transition-colors duration-200 hover:text-primary"
+              data-testid="footer-link-about"
+            >
+              <span>About</span>
+              <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+            </Link>
+
+            <Link
+              href="/contact"
+              className="group relative inline-flex w-fit items-center text-muted-foreground transition-colors duration-200 hover:text-primary"
+              data-testid="footer-link-contact"
+            >
+              <span>Contact Us</span>
+              <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+            </Link>
           </div>
         </div>
-        <div>
-          <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">Direct</p>
-          <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
-            <a href="tel:+918971825137" className="hover:text-primary" data-testid="footer-phone-manoj">+91 8971825137</a>
-            <a href="mailto:mjsince1987@gmail.com" className="break-all hover:text-primary" data-testid="footer-email-manoj">mjsince1987@gmail.com</a>
 
+        {/* Column 3: Direct Contact Details */}
+        <div>
+          <p className="font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
+            Direct
+          </p>
+          <div className="mt-5 flex flex-col gap-3 text-sm">
+            <a
+              href="tel:+918971825137"
+              className="group relative inline-flex w-fit items-center text-muted-foreground transition-colors duration-200 hover:text-primary"
+              data-testid="footer-phone-manoj"
+            >
+              <span>+91 8971825137</span>
+              <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+            </a>
+
+            <a
+              href="mailto:mjsince1987@gmail.com"
+              className="group relative inline-flex w-fit items-center text-muted-foreground transition-colors duration-200 hover:text-primary break-all"
+              data-testid="footer-email-manoj"
+            >
+              <span>mjsince1987@gmail.com</span>
+              <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+            </a>
           </div>
         </div>
       </div>
-      <div className="page-shell flex flex-col gap-2 border-t border-border/60 py-5 font-mono-ui text-[9px] uppercase tracking-[0.14em] text-muted-foreground/70 sm:flex-row sm:items-center sm:justify-between">
-        <span>OMEGA COCKTAIL.CO</span><span>© {new Date().getFullYear()} OMEGA COCKTAIL.CO</span>
+
+      {/* Bottom Copyright Area */}
+      <div className="border-t border-border/70 py-6">
+        <div className="page-shell flex flex-col gap-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground/90 sm:flex-row sm:items-center sm:justify-between">
+          <span>OMEGA COCKTAIL.CO</span>
+          <span>© {currentYear} OMEGA COCKTAIL.CO</span>
+        </div>
       </div>
     </footer>
   );
