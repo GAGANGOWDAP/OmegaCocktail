@@ -170,6 +170,97 @@ function ArrowLink({ href, children, light = false }: { href: string; children: 
   </Link>;
 }
 
+const slideshowImages = [
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-1.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-2.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-3.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-4.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-5.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-6.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-7.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-8.jpg`,
+  `${import.meta.env.BASE_URL}assets/slideshow/slide-9.jpg`,
+];
+
+function HeroSlideshow() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % slideshowImages.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goToPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + slideshowImages.length) % slideshowImages.length);
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % slideshowImages.length);
+  };
+
+  return (
+    <div className="reveal reveal-delay-2 relative mx-auto w-full max-w-[520px]">
+      <div className="absolute -inset-5 border border-primary/15" />
+      <div className="absolute -right-5 -top-5 h-20 w-20 border-r border-t border-primary/60" />
+      
+      <div className="image-lift relative aspect-[.76] overflow-hidden bg-secondary border border-primary/20 shadow-2xl">
+        {slideshowImages.map((src, idx) => (
+          <img
+            key={src}
+            src={src}
+            alt={`OMEGA Studio Bar Craft ${idx + 1}`}
+            className={`absolute inset-0 h-full w-full object-cover object-center brightness-[.88] contrast-[1.05] transition-opacity duration-1000 ease-in-out ${
+              idx === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+          />
+        ))}
+        
+        <div className="absolute inset-0 z-20 bg-gradient-to-t from-background/90 via-transparent to-black/20 pointer-events-none" />
+
+        {/* Navigation Arrows */}
+        <button
+          type="button"
+          onClick={goToPrev}
+          className="absolute left-3 top-1/2 z-30 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full border border-primary/40 bg-black/60 text-primary backdrop-blur-sm transition-all hover:bg-primary hover:text-black"
+          aria-label="Previous slide"
+        >
+          <ArrowLeft size={15} />
+        </button>
+        <button
+          type="button"
+          onClick={goToNext}
+          className="absolute right-3 top-1/2 z-30 -translate-y-1/2 grid h-8 w-8 place-items-center rounded-full border border-primary/40 bg-black/60 text-primary backdrop-blur-sm transition-all hover:bg-primary hover:text-black"
+          aria-label="Next slide"
+        >
+          <ArrowRight size={15} />
+        </button>
+
+        {/* Bottom Bar: Indicators & Counter */}
+        <div className="absolute bottom-5 left-5 right-5 z-30 flex items-center justify-between">
+          <span className="font-mono-ui text-[9px] uppercase tracking-[0.2em] text-primary">
+            The studio / {String(currentIndex + 1).padStart(2, '0')} of {String(slideshowImages.length).padStart(2, '0')}
+          </span>
+          <div className="flex items-center gap-1.5">
+            {slideshowImages.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => setCurrentIndex(idx)}
+                className={`h-1.5 transition-all duration-300 rounded-full ${
+                  idx === currentIndex ? 'w-5 bg-primary' : 'w-1.5 bg-primary/40 hover:bg-primary/70'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HomePage() {
   return (
     <>
@@ -185,18 +276,7 @@ function HomePage() {
               <ArrowLink href="/products">View Products</ArrowLink>
             </div>
           </div>
-          <div className="reveal reveal-delay-2 relative mx-auto w-full max-w-[520px]">
-            <div className="absolute -inset-5 border border-primary/15" />
-            <div className="absolute -right-5 -top-5 h-20 w-20 border-r border-t border-primary/60" />
-            <div className="image-lift relative aspect-[.76] overflow-hidden bg-secondary">
-              <img src="/assets/people/manoj-alphonse.jpeg" alt="Manoj Alphonse holding a shaker behind a bar" className="h-full w-full object-cover object-center brightness-[.84] contrast-[1.07]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-                <span className="font-mono-ui text-[9px] uppercase tracking-[0.2em] text-primary">The studio / 01</span>
-                <span className="h-2 w-2 rounded-full bg-primary shadow-[0_0_0_5px_rgba(194,144,71,.15)]" />
-              </div>
-            </div>
-          </div>
+          <HeroSlideshow />
         </div>
       </section>
       <section className="page-shell py-24 md:py-32">
