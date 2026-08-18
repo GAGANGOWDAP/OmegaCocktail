@@ -9,6 +9,8 @@ import {
   MapPin,
   Menu,
   Phone,
+  Search,
+  SlidersHorizontal,
   X,
 } from 'lucide-react';
 import { Link, Route, Switch, Router as WouterRouter, useLocation, useParams } from 'wouter';
@@ -420,80 +422,266 @@ function SyrupImage({ index, alt }: { index: number; alt: string }) {
   return <div className="h-52 overflow-hidden bg-black sm:h-60"><img src={syrupImage} alt={alt} className="h-full w-full scale-[2.8] object-cover" style={{ objectPosition: positions[index % positions.length] }} /></div>;
 }
 
+function getSyrupCategories(syrup: SyrupItem): string[] {
+  const categories = ['All', 'Syrups', 'Classic Cocktails'];
+  const fruityNames = ['Jamun', 'Guava Chilli', 'Green Apple', 'Raspberry', 'Strawberry', 'Pineapple', 'Cherry', 'Watermelon', 'Peach', 'Green Melon', 'Litchi'];
+  const citrusNames = ['Limoncello', 'Triple Sec', 'Paloma (Grapefruit)', 'Cucumber', 'Blue Curacao', 'Grenadine'];
+  const signatureNames = ['Jamun', 'Guava Chilli', 'Pandan', 'Irish Cream', 'Cinnamon', 'Coconut', 'Limoncello'];
+
+  if (fruityNames.includes(syrup.name)) categories.push('Fruity');
+  if (citrusNames.includes(syrup.name)) categories.push('Citrus');
+  if (signatureNames.includes(syrup.name)) categories.push('Signature');
+
+  return categories;
+}
+
 function SyrupsPage() {
   const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [sortBy, setSortBy] = useState<'default' | 'az' | 'za' | 'number'>('default');
 
-  const filteredItems = syrupItems.filter(item =>
-    item.name.toLowerCase().includes(search.toLowerCase()) ||
-    item.recipe.cocktailName.toLowerCase().includes(search.toLowerCase()) ||
-    item.recipe.ingredients.some(ing => ing.toLowerCase().includes(search.toLowerCase()))
-  );
+  const categories = ['All', 'Syrups', 'Classic Cocktails', 'Fruity', 'Citrus', 'Signature'];
+
+  const filteredItems = syrupItems
+    .filter((item) => {
+      // Category filter
+      if (selectedCategory !== 'All' && selectedCategory !== 'Syrups' && selectedCategory !== 'Classic Cocktails') {
+        const itemCats = getSyrupCategories(item);
+        if (!itemCats.includes(selectedCategory)) return false;
+      }
+      // Search query filter
+      if (!search.trim()) return true;
+      const q = search.toLowerCase();
+      return (
+        item.name.toLowerCase().includes(q) ||
+        item.recipe.cocktailName.toLowerCase().includes(q) ||
+        item.recipe.garnish.toLowerCase().includes(q) ||
+        item.recipe.method.toLowerCase().includes(q) ||
+        item.recipe.ingredients.some((ing) => ing.toLowerCase().includes(q))
+      );
+    })
+    .sort((a, b) => {
+      const idxA = syrupItems.findIndex((s) => s.slug === a.slug);
+      const idxB = syrupItems.findIndex((s) => s.slug === b.slug);
+      if (sortBy === 'az') return a.name.localeCompare(b.name);
+      if (sortBy === 'za') return b.name.localeCompare(a.name);
+      if (sortBy === 'number') return idxA - idxB;
+      return idxA - idxB; // default
+    });
 
   return (
     <div className="page-shell py-16 md:py-24">
-      <Link href="/products" className="inline-flex items-center gap-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground hover:text-primary" data-testid="link-back-products">
+      {/* Back Link */}
+      <Link
+        href="/products"
+        className="inline-flex items-center gap-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary"
+        data-testid="link-back-products"
+      >
         <ArrowLeft size={14} /> Products
       </Link>
-      <div className="mt-14 grid gap-12 md:grid-cols-[.8fr_1.2fr] md:items-end">
+
+      {/* Hero Section */}
+      <div className="mt-10 grid gap-12 md:grid-cols-[.85fr_1.15fr] md:items-center">
         <SectionHeading
           kicker="Cocktail Syrups / 21 Varieties & Classic Recipes"
           title="Colour & Craft, held in reserve."
           body="Each syrup in the OMEGA collection is paired with a signature classic cocktail recipe developed for precision, balance, and high-volume bar service."
         />
-        <div className="border border-primary/25 bg-black p-3">
-          <img src={syrupImage} alt="Cocktail syrup range source sheet" className="max-h-[520px] w-full object-contain object-top" />
+        <div className="overflow-hidden border border-primary/25 bg-black p-4 shadow-xl">
+          <img
+            src={syrupImage}
+            alt="Cocktail syrup range source sheet"
+            className="max-h-[480px] w-full object-contain object-top brightness-95 transition-transform duration-700 hover:scale-[1.01]"
+          />
         </div>
       </div>
+
       <Rule />
 
-      {/* Filter / Search Bar */}
-      <div className="mb-10 flex flex-col gap-4 border-b border-border/80 pb-6 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h2 className="font-display text-3xl">21 Classic Recipes & Syrups</h2>
-          <p className="mt-1 text-xs text-muted-foreground">Select any syrup to view full recipe measurements, preparation method, and garnish guidance.</p>
+      {/* Sticky Search & Filter Control Bar */}
+      <div className="sticky top-[68px] z-30 my-8 border-y border-border/80 bg-background/95 py-5 backdrop-blur-md transition-all duration-300">
+        <div className="flex flex-col gap-5">
+          {/* Title & Search / Sort Header Row */}
+          <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
+            <div>
+              <h2 className="font-display text-3xl md:text-4xl text-foreground">
+                21 Classic Recipes &amp; Syrups
+              </h2>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                Select any syrup card to view complete recipe measurements, preparation method, and garnish guidance.
+              </p>
+            </div>
+
+            {/* Search Input & Sort Dropdown Container */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              {/* Search Bar */}
+              <div className="relative w-full sm:w-80">
+                <Search
+                  size={15}
+                  className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+                />
+                <input
+                  type="text"
+                  aria-label="Search syrups, cocktails, or spirits"
+                  placeholder="Search syrups, cocktails, or spirits..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full border border-border/90 bg-card py-2.5 pl-10 pr-9 text-xs text-foreground placeholder:text-muted-foreground/70 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50"
+                  data-testid="input-search-syrups"
+                />
+                {search && (
+                  <button
+                    type="button"
+                    onClick={() => setSearch('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    aria-label="Clear search"
+                  >
+                    <X size={14} />
+                  </button>
+                )}
+              </div>
+
+              {/* Sort Dropdown */}
+              <div className="flex items-center gap-2">
+                <label htmlFor="sort-select" className="sr-only">
+                  Sort recipes
+                </label>
+                <select
+                  id="sort-select"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                  className="w-full sm:w-auto border border-border/90 bg-card px-3 py-2.5 font-mono-ui text-[11px] text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/50 cursor-pointer"
+                  data-testid="select-sort-syrups"
+                >
+                  <option value="default">Sort: Default</option>
+                  <option value="az">Sort: A – Z</option>
+                  <option value="za">Sort: Z – A</option>
+                  <option value="number">Sort: Syrup Number</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Filter Chips Row */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar scroll-smooth">
+            <span className="shrink-0 font-mono-ui text-[9px] uppercase tracking-[0.2em] text-primary/80 mr-1">
+              Filter:
+            </span>
+            {categories.map((cat) => {
+              const isActive = selectedCategory === cat;
+              return (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`shrink-0 px-3.5 py-1.5 font-mono-ui text-[10px] uppercase tracking-[0.15em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary ${
+                    isActive
+                      ? 'bg-primary text-primary-foreground border border-primary font-semibold shadow-sm'
+                      : 'border border-border/80 bg-card/70 text-muted-foreground hover:border-primary/60 hover:text-foreground'
+                  }`}
+                  data-testid={`filter-chip-${toSlug(cat)}`}
+                >
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
         </div>
-        <input
-          type="text"
-          placeholder="Search syrup, cocktail, or spirit..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full border border-border bg-card px-4 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none sm:w-72"
-        />
       </div>
 
-      <div className="grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-        {filteredItems.map((item) => {
-          const originalIndex = syrupItems.findIndex(s => s.slug === item.slug);
-          return (
-            <Link
-              key={item.slug}
-              href={`/products/cocktail-syrups/${item.slug}`}
-              className="group flex flex-col justify-between bg-card p-4 transition-colors hover:bg-[#1b1712]"
-              data-testid={`card-product-${item.slug}`}
-            >
-              <div>
-                <SyrupImage index={originalIndex} alt={`${item.name} shown in the supplied cocktail syrup range`} />
-                <div className="px-2 pt-5">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="font-mono-ui text-[9px] text-primary">SYRUP / {String(originalIndex + 1).padStart(2, '0')}</p>
-                    <ArrowUpRight size={17} className="text-primary transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+      {/* Recipe Catalog Grid */}
+      {filteredItems.length === 0 ? (
+        <div className="my-16 border border-dashed border-border/80 bg-card/40 p-12 text-center">
+          <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">No results match your search</p>
+          <h3 className="mt-3 font-display text-2xl text-foreground">No syrups or classic recipes found</h3>
+          <p className="mt-2 text-xs text-muted-foreground">Try adjusting your search query or selecting another category filter.</p>
+          <button
+            type="button"
+            onClick={() => {
+              setSearch('');
+              setSelectedCategory('All');
+            }}
+            className="mt-6 inline-flex items-center gap-2 border border-primary px-4 py-2 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            Reset Filters
+          </button>
+        </div>
+      ) : (
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredItems.map((item) => {
+            const originalIndex = syrupItems.findIndex((s) => s.slug === item.slug);
+            const syrupNumStr = String(originalIndex + 1).padStart(2, '0');
+
+            return (
+              <Link
+                key={item.slug}
+                href={`/products/cocktail-syrups/${item.slug}`}
+                className="group relative flex flex-col justify-between overflow-hidden rounded-sm border border-border/80 bg-card p-5 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-primary/60 hover:bg-[#1a1612] hover:shadow-[0_12px_35px_rgba(220,165,75,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none"
+                data-testid={`card-product-${item.slug}`}
+              >
+                {/* Top Subtle Gold Accent Line */}
+                <div
+                  className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-primary/30 via-primary to-primary/30 transition-all duration-500 ease-out group-hover:w-full"
+                  aria-hidden="true"
+                />
+
+                <div>
+                  {/* Top Row: Syrup Number & Category */}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono-ui text-[10px] font-medium tracking-wider text-primary">
+                      SYRUP / {syrupNumStr}
+                    </span>
+                    <span className="font-mono-ui text-[8px] uppercase tracking-[0.18em] text-muted-foreground/80 border border-border/60 px-2 py-0.5 rounded-full bg-secondary/50">
+                      Classic Recipe
+                    </span>
                   </div>
-                  <h3 className="mt-1.5 font-display text-3xl leading-none">{item.name}</h3>
-                  <div className="mt-4 border-t border-border/60 pt-3">
-                    <p className="font-mono-ui text-[9px] uppercase tracking-[0.15em] text-primary/90">Signature Serve</p>
-                    <p className="mt-1 font-display text-xl text-foreground transition-colors group-hover:text-primary">{item.recipe.cocktailName}</p>
-                    <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{item.recipe.method}</p>
+
+                  {/* Main Syrup Heading */}
+                  <h3 className="mt-3 font-display text-3xl leading-none text-foreground transition-colors group-hover:text-white">
+                    {item.name}
+                  </h3>
+
+                  {/* Existing Product Visual */}
+                  <div className="mt-4 overflow-hidden border border-border/50 bg-black/60 transition-colors group-hover:border-primary/30">
+                    <SyrupImage
+                      index={originalIndex}
+                      alt={`${item.name} shown in the supplied cocktail syrup range`}
+                    />
+                  </div>
+
+                  {/* Signature Serve & Cocktail Info */}
+                  <div className="mt-5 border-t border-border/60 pt-4">
+                    <span className="font-mono-ui text-[9px] font-semibold uppercase tracking-[0.2em] text-primary/90">
+                      SIGNATURE SERVE
+                    </span>
+                    <h4 className="mt-1.5 font-display text-2xl leading-snug text-foreground transition-colors group-hover:text-primary">
+                      {item.recipe.cocktailName}
+                    </h4>
+                    <p className="mt-2.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground/90 transition-colors group-hover:text-muted-foreground">
+                      {item.recipe.method}
+                    </p>
                   </div>
                 </div>
-              </div>
-              <div className="mt-5 flex items-center justify-between border-t border-border/40 px-2 pb-1 pt-3 font-mono-ui text-[10px] uppercase tracking-[0.14em] text-muted-foreground group-hover:text-foreground">
-                <span className="truncate pr-2">Garnish: {item.recipe.garnish}</span>
-                <span className="shrink-0 text-primary">View Recipe →</span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+
+                {/* Bottom Section: Garnish Info & VIEW RECIPE CTA */}
+                <div className="mt-6 border-t border-border/50 pt-3">
+                  <p className="font-mono-ui text-[10px] uppercase tracking-[0.14em] text-muted-foreground/80 truncate">
+                    <span className="text-primary/80 font-semibold">GARNISH:</span> {item.recipe.garnish}
+                  </p>
+
+                  <div className="mt-3.5 flex items-center justify-between">
+                    <span className="relative inline-flex items-center gap-1.5 font-mono-ui text-[10px] font-semibold uppercase tracking-[0.18em] text-primary transition-transform duration-300 ease-out group-hover:translate-x-1.5">
+                      <span>VIEW RECIPE</span>
+                      <ArrowRight size={13} className="transition-transform duration-300 ease-out group-hover:translate-x-1" />
+                      <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
