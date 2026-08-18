@@ -323,7 +323,6 @@ export const profiles = [
       'Independent since 2011.',
       'Coverage: Karnataka, Tamil Nadu, Andhra Pradesh, Kerala.',
       'Service lines include acquisition consulting, operations management, development consulting, and project consulting & licensing.',
-    ],
-    
+    contact: ['Hospitality & Liaising Consultant', 'Coverage: KA, TN, AP, KL'],
   },
 ];

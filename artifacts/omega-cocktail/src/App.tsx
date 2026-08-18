@@ -523,11 +523,61 @@ function ProductDetailPage() {
 }
 
 function AboutPage() {
-  return <div className="page-shell py-20 md:py-28"><SectionHeading kicker="About / The studio" title="Two disciplines. One room." body="OMEGA COCKTAIL.CO brings beverage craft and hospitality project thinking together, from the first conversation to the finished service." /><div className="mt-20 grid gap-20">{profiles.map((profile, index) => <Profile key={profile.name} profile={profile} reverse={index % 2 === 1} />)}</div><div className="mt-24 border-t border-border pt-10"><p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">The point of contact</p><div className="mt-7 grid gap-8 md:grid-cols-2">{profiles.map((profile) => <div key={profile.name} className="border border-border bg-card p-6"><h3 className="font-display text-3xl">{profile.name}</h3><div className="mt-5 grid gap-3 text-sm text-muted-foreground">{profile.contact.map((item) => <p key={item}>{item}</p>)}</div></div>)}</div></div></div>;
+  return (
+    <div className="page-shell py-20 md:py-28">
+      <SectionHeading kicker="About / The studio" title="Two disciplines. One room." body="OMEGA COCKTAIL.CO brings beverage craft and hospitality project thinking together, from the first conversation to the finished service." />
+      <div className="mt-20 grid gap-20">
+        {profiles.map((profile, index) => <Profile key={profile.name} profile={profile} reverse={index % 2 === 1} />)}
+      </div>
+      <div className="mt-24 border-t border-border pt-10">
+        <p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">The point of contact</p>
+        <div className="mt-7 grid gap-8 md:grid-cols-2">
+          {profiles.map((profile) => (
+            <div key={profile.name} className="border border-border bg-card p-6">
+              <h3 className="font-display text-3xl">{profile.name}</h3>
+              <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
+                {profile.contact?.map((item) => <p key={item}>{item}</p>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function Profile({ profile, reverse }: { profile: typeof profiles[number]; reverse: boolean }) {
-  return <article className={`grid gap-10 md:grid-cols-2 md:items-center md:gap-20 ${reverse ? 'md:[&>div:first-child]:order-2' : ''}`}><div className="image-lift overflow-hidden border border-primary/20 bg-secondary"><img src={profile.image} alt={profile.name} className={`aspect-[.9] w-full object-cover ${profile.name === 'Suresh Naidu' ? 'object-[center_28%]' : 'object-center'}`} /></div><div><p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">{profile.eyebrow}</p><h2 className="mt-5 font-display text-5xl leading-[.9] md:text-7xl">{profile.name}</h2><p className="mt-3 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{profile.role}</p><p className="mt-7 text-sm leading-7 text-muted-foreground">{profile.biography}</p><Rule /><p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">Selected experience</p><ul className="mt-4 grid gap-3 text-sm leading-6 text-muted-foreground">{profile.experience.map((item) => <li key={item} className="flex gap-3"><span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />{item}</li>)}</ul></div></article>;
+  const imageUrl = profile.image.startsWith('http')
+    ? profile.image
+    : `${import.meta.env.BASE_URL}${profile.image.replace(/^\//, '')}`;
+
+  return (
+    <article className={`grid gap-10 md:grid-cols-2 md:items-center md:gap-20 ${reverse ? 'md:[&>div:first-child]:order-2' : ''}`}>
+      <div className="image-lift overflow-hidden border border-primary/20 bg-secondary">
+        <img
+          src={imageUrl}
+          alt={profile.name}
+          className={`aspect-[.9] w-full object-cover ${profile.name === 'Suresh Naidu' ? 'object-[center_28%]' : 'object-center'}`}
+        />
+      </div>
+      <div>
+        <p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">{profile.eyebrow}</p>
+        <h2 className="mt-5 font-display text-5xl leading-[.9] md:text-7xl">{profile.name}</h2>
+        <p className="mt-3 font-mono-ui text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{profile.role}</p>
+        <p className="mt-7 text-sm leading-7 text-muted-foreground">{profile.biography}</p>
+        <Rule />
+        <p className="font-mono-ui text-[10px] uppercase tracking-[0.2em] text-primary">Selected experience</p>
+        <ul className="mt-4 grid gap-3 text-sm leading-6 text-muted-foreground">
+          {profile.experience.map((item) => (
+            <li key={item} className="flex gap-3">
+              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  );
 }
 
 function ContactPage() {
