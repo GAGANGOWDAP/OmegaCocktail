@@ -532,14 +532,14 @@ function AboutPage() {
       <div className="mt-24 border-t border-border pt-10">
         <p className="font-mono-ui text-[10px] uppercase tracking-[0.25em] text-primary">The point of contact</p>
         <div className="mt-7 max-w-xl">
-          {profiles.filter((profile) => profile.name !== 'Suresh Naidu').map((profile) => (
-            <div key={profile.name} className="border border-border bg-card p-6 md:p-8">
-              <h3 className="font-display text-3xl">{profile.name}</h3>
-              <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
-                {profile.contact?.map((item) => <p key={item}>{item}</p>)}
-              </div>
+          <div className="border border-border bg-card p-6 md:p-8">
+            <h3 className="font-display text-3xl">Manoj Alphonse</h3>
+            <div className="mt-5 grid gap-3 text-sm text-muted-foreground">
+              <p>+91 8971825137</p>
+              <p>mjsince1987@gmail.com</p>
+              <p>No 6, RA Road, Ejipura, Bengaluru-560047</p>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>
