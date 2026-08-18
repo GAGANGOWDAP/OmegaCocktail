@@ -318,16 +318,79 @@ function HomePage() {
 }
 
 function ServiceCard({ service }: { service: Service }) {
+  const isMaster = service.slug === 'all-services';
+
   return (
-    <Link href={`/services/${service.slug}`} className="group flex min-h-[240px] flex-col justify-between bg-card p-6 transition-colors hover:bg-[#1b1712] md:p-7" data-testid={`card-service-${service.slug}`}>
-      <div className="flex items-start justify-between"><span className="font-mono-ui text-[10px] text-primary">{service.index}</span>{service.icon && <span className="font-display text-3xl text-primary/75 transition-transform duration-300 group-hover:rotate-12">{service.icon}</span>}</div>
-      <div><h3 className="max-w-[12rem] font-display text-3xl leading-none">{service.name}</h3><p className="mt-4 text-xs leading-6 text-muted-foreground">{service.description}</p><span className="mt-6 inline-flex items-center gap-2 font-mono-ui text-[9px] uppercase tracking-[0.18em] text-primary">View details <ArrowUpRight size={13} /></span></div>
+    <Link
+      href={`/services/${service.slug}`}
+      className={`group relative flex min-h-[265px] flex-col justify-between overflow-hidden p-6 transition-all duration-350 ease-out md:p-7 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none ${
+        isMaster
+          ? 'border border-primary/40 bg-[#16120e] hover:border-primary/80 hover:bg-[#1f1913] hover:shadow-[0_10px_35px_rgba(220,165,75,0.12)]'
+          : 'border border-border/80 bg-card hover:border-primary/60 hover:bg-[#1a1612] hover:shadow-[0_8px_30px_rgba(220,165,75,0.08)]'
+      } hover:scale-[1.02] hover:-translate-y-1.5`}
+      data-testid={`card-service-${service.slug}`}
+    >
+      {/* Top Animated Gold Accent Line */}
+      <div
+        className="absolute top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-primary/30 via-primary to-primary/30 transition-all duration-500 ease-out group-hover:w-full"
+        aria-hidden="true"
+      />
+
+      {/* Header: Number & Emoji */}
+      <div className="flex items-start justify-between">
+        <span className="font-mono-ui text-[11px] font-medium tracking-wider text-primary/70 transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-105 group-hover:text-primary">
+          {service.index}
+        </span>
+        {service.icon && (
+          <span className="select-none font-display text-3xl opacity-85 transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-110 group-hover:opacity-100">
+            {service.icon}
+          </span>
+        )}
+      </div>
+
+      {/* Content: Title & Description */}
+      <div className="my-4">
+        <h3 className="max-w-[13rem] font-display text-3xl leading-none text-foreground transition-all duration-300 ease-out group-hover:-translate-y-1 group-hover:text-white">
+          {service.name}
+        </h3>
+        <p className="mt-4 text-xs leading-6 text-muted-foreground/80 transition-colors duration-300 ease-out group-hover:text-muted-foreground">
+          {service.description}
+        </p>
+      </div>
+
+      {/* CTA: VIEW DETAILS & Animated Underline */}
+      <div className="mt-4 flex items-center justify-between">
+        <span className="relative inline-flex items-center gap-2 font-mono-ui text-[9px] font-semibold uppercase tracking-[0.2em] text-primary transition-transform duration-300 ease-out group-hover:translate-x-1.5">
+          <span>VIEW DETAILS</span>
+          <ArrowUpRight size={13} className="transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+          <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
+        </span>
+        {isMaster && (
+          <span className="rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 font-mono-ui text-[8px] uppercase tracking-[0.2em] text-primary/90">
+            Master Option
+          </span>
+        )}
+      </div>
     </Link>
   );
 }
 
 function ServicesPage() {
-  return <div className="page-shell py-20 md:py-28"><SectionHeading kicker="Services / 07" title="The work behind the pour." body="A full-service beverage studio for hospitality projects, bars, breweries, events, and the teams that bring them to life." /><Rule /><div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-4">{services.map((service) => <ServiceCard key={service.slug} service={service} />)}</div></div>;
+  return (
+    <div className="page-shell py-20 md:py-28">
+      <SectionHeading
+        kicker="Services / 07"
+        title="The work behind the pour."
+        body="A full-service beverage studio for hospitality projects, bars, breweries, events, and the teams that bring them to life."
+      />
+      <Rule />
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {services.map((service) => (
+          <ServiceCard key={service.slug} service={service} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function ServiceDetailPage() {
