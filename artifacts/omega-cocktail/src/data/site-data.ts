@@ -73,16 +73,34 @@ export type CocktailRecipe = {
   garnish: string;
 };
 
+export type SyrupCategory = 'ALL' | 'FLORAL' | 'FRUITY' | 'TROPICAL' | 'HERBAL' | 'CLASSIC';
+
 export type SyrupItem = {
+  index: string;
   name: string;
   slug: string;
+  category: SyrupCategory;
+  tag: string;
+  badgeColor: string;
+  description: string;
+  pairingNotes: string;
+  volume: string;
+  applications: string[];
   recipe: CocktailRecipe;
 };
 
 export const syrupItems: SyrupItem[] = [
   {
+    index: '01',
     name: 'Jamun',
     slug: 'jamun',
+    category: 'FRUITY',
+    tag: 'Signature Indian',
+    badgeColor: '#5c2a5d',
+    description: 'Deep astringent dark berry notes paired with a balanced natural sweetness and vibrant purple hue.',
+    pairingNotes: 'Bourbon, Aged Rum, Gin, Club Soda, Tonic',
+    volume: '750 ml',
+    applications: ['Craft Cocktails', 'Zero-Proof Spritz', 'Artisan Soda', 'Dessert Reductions'],
     recipe: {
       cocktailName: 'Jamun Old Fashioned',
       ingredients: ['Bourbon — 60 ml', 'Jamun Syrup — 10 ml', 'Angostura Bitters — 2 dashes'],
@@ -91,8 +109,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '02',
     name: 'Limoncello',
     slug: 'limoncello',
+    category: 'CLASSIC',
+    tag: 'Mediterranean Citrus',
+    badgeColor: '#d4af37',
+    description: 'Bright sun-ripened lemon peel aroma with crisp citric balance and aromatic oil complexity.',
+    pairingNotes: 'Gin, Vodka, Prosecco, Soda, Iced Teas',
+    volume: '750 ml',
+    applications: ['Collins & Spritzes', 'Aperitivos', 'Flavoured Cold Brews', 'Highball Serves'],
     recipe: {
       cocktailName: 'Limoncello Collins',
       ingredients: ['Gin — 45 ml', 'Limoncello Syrup — 20 ml', 'Fresh Lemon Juice — 20 ml', 'Soda — 60 ml'],
@@ -101,8 +127,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '03',
     name: 'Triple Sec',
     slug: 'triple-sec',
+    category: 'CLASSIC',
+    tag: 'Bar Essential',
+    badgeColor: '#d97706',
+    description: 'Essential bittersweet orange peel notes crafted for crystal-clear balance in shaken drinks.',
+    pairingNotes: 'Tequila, Cognac, Vodka, White Rum',
+    volume: '750 ml',
+    applications: ['Margaritas', 'Cosmopolitans', 'Sidecars', 'High-Volume Cocktail Prep'],
     recipe: {
       cocktailName: 'Triple Sec Margarita',
       ingredients: ['Tequila — 50 ml', 'Triple Sec Syrup — 20 ml', 'Fresh Lime Juice — 20 ml'],
@@ -111,8 +145,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '04',
     name: 'Guava Chilli',
     slug: 'guava-chilli',
+    category: 'SPICED' as SyrupCategory,
+    tag: 'Spiced Tropical',
+    badgeColor: '#dc2626',
+    description: 'Tropical pink guava warmth layered with a subtle fiery green chilli kick on the finish.',
+    pairingNotes: 'Tequila, Mezcal, White Rum, Soda',
+    volume: '750 ml',
+    applications: ['Spicy Margaritas', 'Tequila Serves', 'Craft Lemonades', 'Rimmed Glass Cocktails'],
     recipe: {
       cocktailName: 'Guava Chilli Margarita',
       ingredients: ['Tequila — 50 ml', 'Guava Chilli Syrup — 20 ml', 'Fresh Lime Juice — 20 ml'],
@@ -121,8 +163,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '05',
     name: 'Paloma (Grapefruit)',
     slug: 'paloma-grapefruit',
+    category: 'TROPICAL',
+    tag: 'Citrus Classic',
+    badgeColor: '#ea580c',
+    description: 'Tart ruby grapefruit zests blended with bitter-sweet citrus balance and subtle floral notes.',
+    pairingNotes: 'Tequila, Mezcal, Gin, Club Soda',
+    volume: '750 ml',
+    applications: ['Palomas', 'Highball Spritzes', 'Zero-Proof Citrus Soda', 'Brunch Menus'],
     recipe: {
       cocktailName: 'Paloma',
       ingredients: ['Tequila — 50 ml', 'Paloma (Grapefruit) Syrup — 20 ml', 'Fresh Lime Juice — 15 ml', 'Soda — 60 ml'],
@@ -131,8 +181,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '06',
     name: 'Cucumber',
     slug: 'cucumber',
+    category: 'HERBAL',
+    tag: 'Botanical Fresh',
+    badgeColor: '#16a34a',
+    description: 'Crisp, garden-fresh cucumber aroma with a clean cooling finish and delicate herbaceous notes.',
+    pairingNotes: 'Gin, Vodka, Tonic Water, Sparkling Water',
+    volume: '750 ml',
+    applications: ['Gin & Tonics', 'Spa Coolers', 'Botanical Fizzes', 'Cold Brew Teas'],
     recipe: {
       cocktailName: 'Cucumber Gin Fizz',
       ingredients: ['Gin — 45 ml', 'Cucumber Syrup — 20 ml', 'Fresh Lemon Juice — 20 ml', 'Soda — 60 ml'],
@@ -141,8 +199,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '07',
     name: 'Green Apple',
     slug: 'green-apple',
+    category: 'FRUITY',
+    tag: 'Crisp Orchard',
+    badgeColor: '#65a30d',
+    description: 'Zesty Granny Smith apple crispness with sharp fruit acidity and bright green transparency.',
+    pairingNotes: 'Vodka, Gin, White Wine, Lemonade',
+    volume: '750 ml',
+    applications: ['Appletinis', 'Fruit Highballs', 'Flavoured Iced Teas', 'Sparkling Mocktails'],
     recipe: {
       cocktailName: 'Green Apple Martini',
       ingredients: ['Vodka — 50 ml', 'Green Apple Syrup — 20 ml', 'Fresh Lemon Juice — 10 ml'],
@@ -151,8 +217,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '08',
     name: 'Raspberry',
     slug: 'raspberry',
+    category: 'FRUITY',
+    tag: 'Berry Reserve',
+    badgeColor: '#be123c',
+    description: 'Juicy summer raspberry aromatics with balanced tartness and deep ruby color density.',
+    pairingNotes: 'Gin, Vodka, Bourbon, Lemonade, Sparkling Wine',
+    volume: '750 ml',
+    applications: ['Brambles', 'Clover Clubs', 'Berry Lemonades', 'Dessert Drizzles'],
     recipe: {
       cocktailName: 'Raspberry Bramble',
       ingredients: ['Gin — 45 ml', 'Raspberry Syrup — 20 ml', 'Fresh Lemon Juice — 20 ml', 'Soda — 30 ml'],
@@ -161,8 +235,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '09',
     name: 'Strawberry',
     slug: 'strawberry',
+    category: 'FRUITY',
+    tag: 'Sweet Harvest',
+    badgeColor: '#e11d48',
+    description: 'Ripe wild strawberry sweetness with aromatic floral notes and smooth mixability.',
+    pairingNotes: 'White Rum, Tequila, Vodka, Lemonade',
+    volume: '750 ml',
+    applications: ['Daiquiris', 'Strawberry Margaritas', 'Artisan Sodas', 'Milkshakes & Smoothies'],
     recipe: {
       cocktailName: 'Strawberry Daiquiri',
       ingredients: ['White Rum — 50 ml', 'Strawberry Syrup — 20 ml', 'Fresh Lime Juice — 20 ml'],
@@ -171,8 +253,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '10',
     name: 'Pineapple',
     slug: 'pineapple',
+    category: 'TROPICAL',
+    tag: 'Island Nectar',
+    badgeColor: '#ca8a04',
+    description: 'Golden sun-ripened pineapple richness with balanced tropical sweetness and caramel undertones.',
+    pairingNotes: 'Dark Rum, White Rum, Coconut, Tequila',
+    volume: '750 ml',
+    applications: ['Tiki Cocktails', 'Mai Tais', 'Tropical Punch', 'Café Cold Brews'],
     recipe: {
       cocktailName: 'Pineapple Mai Tai',
       ingredients: ['Dark Rum — 30 ml', 'White Rum — 30 ml', 'Pineapple Syrup — 20 ml', 'Fresh Lime Juice — 20 ml'],
@@ -181,8 +271,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '11',
     name: 'Cherry',
     slug: 'cherry',
+    category: 'FRUITY',
+    tag: 'Rich Orchard',
+    badgeColor: '#881337',
+    description: 'Dark Morello cherry profile with subtle almond nuances and velvety sweetness.',
+    pairingNotes: 'Bourbon, Rye Whiskey, Vermouth, Cola',
+    volume: '750 ml',
+    applications: ['Manhattans', 'Craft Colas', 'Old Fashioneds', 'Dessert Cocktails'],
     recipe: {
       cocktailName: 'Cherry Manhattan',
       ingredients: ['Bourbon or Rye Whiskey — 50 ml', 'Cherry Syrup — 10 ml', 'Sweet Vermouth — 20 ml', 'Angostura Bitters — 2 dashes'],
@@ -191,8 +289,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '12',
     name: 'Blue Curacao',
     slug: 'blue-curacao',
+    category: 'CLASSIC',
+    tag: 'Vibrant Orange',
+    badgeColor: '#0284c7',
+    description: 'Electric azure color carrying authentic Laraha orange peel aromas for striking visual serves.',
+    pairingNotes: 'Vodka, White Rum, Gin, Lemonade',
+    volume: '750 ml',
+    applications: ['Blue Hawaii', 'Electric Lemonades', 'Layered Serves', 'Poolside Cocktails'],
     recipe: {
       cocktailName: 'Blue Curaçao Sour',
       ingredients: ['Vodka — 45 ml', 'Blue Curaçao Syrup — 20 ml', 'Fresh Lemon Juice — 20 ml'],
@@ -201,8 +307,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '13',
     name: 'Pandan',
     slug: 'pandan',
+    category: 'HERBAL',
+    tag: 'Exotic Botanical',
+    badgeColor: '#15803d',
+    description: 'Aromatic Asian screwpine leaf notes with warm vanilla, roasted coconut, and herbal depths.',
+    pairingNotes: 'White Rum, Aged Spirits, Coconut, Espresso',
+    volume: '750 ml',
+    applications: ['Asian Fusion Serves', 'Pandan Mojito', 'Specialty Lattes', 'Modern Highballs'],
     recipe: {
       cocktailName: 'Pandan Mojito',
       ingredients: ['White Rum — 50 ml', 'Pandan Syrup — 20 ml', 'Fresh Lime Juice — 20 ml', 'Fresh Mint — 8–10 leaves', 'Soda — 60 ml'],
@@ -211,8 +325,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '14',
     name: 'Grenadine',
     slug: 'grenadine',
+    category: 'CLASSIC',
+    tag: 'Pomegranate Core',
+    badgeColor: '#9f1239',
+    description: 'Traditional ruby pomegranate syrup with deep berry tartness and classic red hue density.',
+    pairingNotes: 'Apple Brandy, Rum, Gin, Ginger Ale',
+    volume: '750 ml',
+    applications: ['Jack Rose', 'Shirley Temple', 'Tequila Sunrise', 'Bar Rail Staple'],
     recipe: {
       cocktailName: 'Jack Rose',
       ingredients: ['Apple Brandy — 50 ml', 'Grenadine Syrup — 15 ml', 'Fresh Lime Juice — 20 ml'],
@@ -221,8 +343,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '15',
     name: 'Litchi',
     slug: 'litchi',
+    category: 'TROPICAL',
+    tag: 'Exotic Floral',
+    badgeColor: '#db2777',
+    description: 'Delicate Asian lychee floral fragrance with translucent sweetness and soft tropical acidity.',
+    pairingNotes: 'Vodka, Gin, Sake, Sparkling Wine',
+    volume: '750 ml',
+    applications: ['Lychee Martinis', 'Asian Spritzes', 'Sparkling Flutes', 'Iced Green Teas'],
     recipe: {
       cocktailName: 'Litchi Martini',
       ingredients: ['Vodka — 50 ml', 'Litchi Syrup — 20 ml', 'Fresh Lemon Juice — 10 ml'],
@@ -231,8 +361,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '16',
     name: 'Irish Cream',
     slug: 'irish-cream',
+    category: 'CLASSIC',
+    tag: 'Velvet Confection',
+    badgeColor: '#78350f',
+    description: 'Rich cream, cocoa, and subtle whiskey undertones formulated for smooth dairy and non-dairy mixing.',
+    pairingNotes: 'Vodka, Coffee Liqueur, Espresso, Milk',
+    volume: '750 ml',
+    applications: ['White Russians', 'Dessert Cocktails', 'Iced Lattes', 'After-Dinner Drinks'],
     recipe: {
       cocktailName: 'Irish Cream White Russian',
       ingredients: ['Vodka — 40 ml', 'Irish Cream Syrup — 20 ml', 'Coffee Liqueur — 15 ml', 'Fresh Cream — 30 ml'],
@@ -241,8 +379,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '17',
     name: 'Watermelon',
     slug: 'watermelon',
+    category: 'FRUITY',
+    tag: 'Summer Fresh',
+    badgeColor: '#f43f5e',
+    description: 'Refreshing crisp red watermelon flesh flavor with light melon sweetness and vibrant red clarity.',
+    pairingNotes: 'White Rum, Tequila, Gin, Soda',
+    volume: '750 ml',
+    applications: ['Watermelon Daiquiris', 'Summer Coolers', 'Agua Frescas', 'Poolside Cocktails'],
     recipe: {
       cocktailName: 'Watermelon Daiquiri',
       ingredients: ['White Rum — 50 ml', 'Watermelon Syrup — 20 ml', 'Fresh Lime Juice — 20 ml'],
@@ -251,8 +397,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '18',
     name: 'Peach',
     slug: 'peach',
+    category: 'FRUITY',
+    tag: 'Soft Orchard',
+    badgeColor: '#f97316',
+    description: 'Fragrant yellow peach nectar with delicate stone-fruit acidity and velvety mouthfeel.',
+    pairingNotes: 'Prosecco, White Wine, Bourbon, Iced Tea',
+    volume: '750 ml',
+    applications: ['Bellinis', 'Peach Iced Teas', 'Whiskey Smash', 'Sangrias'],
     recipe: {
       cocktailName: 'Peach Bellini',
       ingredients: ['Peach Syrup — 20 ml', 'Prosecco — 90 ml'],
@@ -261,8 +415,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '19',
     name: 'Cinnamon',
     slug: 'cinnamon',
+    category: 'HERBAL',
+    tag: 'Warm Spice',
+    badgeColor: '#b45309',
+    description: 'Warm Sri Lankan Ceylon cinnamon bark aromatics with gentle woody spice and amber warmth.',
+    pairingNotes: 'Bourbon, Rye Whiskey, Dark Rum, Apple Juice',
+    volume: '750 ml',
+    applications: ['Whiskey Sours', 'Hot Toddy & Winter Drinks', 'Spiced Cider', 'Craft Coffee'],
     recipe: {
       cocktailName: 'Cinnamon Whiskey Sour',
       ingredients: ['Bourbon — 50 ml', 'Cinnamon Syrup — 15 ml', 'Fresh Lemon Juice — 25 ml', 'Egg White — 15 ml (optional)'],
@@ -271,8 +433,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '20',
     name: 'Green Melon',
     slug: 'green-melon',
+    category: 'FRUITY',
+    tag: 'Honeydew Fresh',
+    badgeColor: '#22c55e',
+    description: 'Lush Japanese honeydew melon aroma with vibrant neon green translucency and crisp sweetness.',
+    pairingNotes: 'Vodka, White Rum, Coconut Water, Soda',
+    volume: '750 ml',
+    applications: ['Melon Sours', 'Japanese Highballs', 'Fruit Spritzes', 'Cocktail Shakers'],
     recipe: {
       cocktailName: 'Green Melon Sour',
       ingredients: ['Vodka — 45 ml', 'Green Melon Syrup — 20 ml', 'Fresh Lime Juice — 20 ml'],
@@ -281,8 +451,16 @@ export const syrupItems: SyrupItem[] = [
     },
   },
   {
+    index: '21',
     name: 'Coconut',
     slug: 'coconut',
+    category: 'TROPICAL',
+    tag: 'Island Cream',
+    badgeColor: '#0f766e',
+    description: 'Creamy toasted coconut milk aroma with smooth tropical sweetness and silky beverage texture.',
+    pairingNotes: 'White Rum, Dark Rum, Espresso, Pineapple Juice',
+    volume: '750 ml',
+    applications: ['Piña Coladas', 'Coconut Cold Brews', 'Tiki Drinks', 'Smoothies & Shakes'],
     recipe: {
       cocktailName: 'Coconut Colada',
       ingredients: ['White Rum — 50 ml', 'Coconut Syrup — 20 ml', 'Pineapple Juice — 80 ml', 'Fresh Lime Juice — 10 ml'],
@@ -300,10 +478,10 @@ export const toSlug = (value: string) =>
 export const profiles = [
   {
     name: 'Manoj Alphonse',
-    role: 'Beverage Connoisseur',
+    role: 'Beverage Connoisseur & Co-Founder',
     image: '/assets/people/manoj-alphonse.jpeg',
-    eyebrow: '01 / Beverage',
-    biography: 'A dynamic and energetic beverage professional with experience across bar management, mixology, menu development, operations, and team leadership.',
+    eyebrow: '01 / Beverage Craft',
+    biography: 'A dynamic and energetic beverage professional with experience across bar management, mixology, menu development, operations, and team leadership for luxury F&B venues.',
     experience: [
       'Beverage Head & Master Mixologist at Phoenix (Bellona Hospitality), India, 2023–2024.',
       'Beverage Head at GATSBY (Westfield Hospitality Pvt Ltd), Bangalore, 2021–2023.',
@@ -316,14 +494,14 @@ export const profiles = [
     name: 'Suresh Naidu',
     role: 'Hospitality & Liaising Consultant',
     image: '/assets/people/suresh-naidu-source.jpeg',
-    eyebrow: '02 / Hospitality',
-    biography: 'Hotel, micro brewery, restaurant, and bar management, acquisition, development, and licensing consultant.',
+    eyebrow: '02 / Hospitality & Development',
+    biography: 'Hotel, microbrewery, restaurant, and bar management, acquisition, development, and licensing consultant with 30 years of combined expertise.',
     experience: [
       '30 years combined expertise: 20 years hospitality and 10 years government liaising.',
-      'Independent since 2011.',
-      'Coverage: Karnataka, Tamil Nadu, Andhra Pradesh, Kerala.',
+      'Independent consultant since 2011.',
+      'Regional coverage: Karnataka, Tamil Nadu, Andhra Pradesh, Kerala.',
       'Service lines include acquisition consulting, operations management, development consulting, and project consulting & licensing.',
     ],
-
+    contact: ['+91 99808 41016', 'sureshvat69@gmail.com'],
   },
 ];
