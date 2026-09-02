@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -29,53 +30,81 @@
 }
 
 :root {
-  --background: 30 9% 5%;
-  --foreground: 39 34% 94%;
-  --border: 39 18% 18%;
-  --input: 39 16% 22%;
-  --ring: 39 67% 59%;
-  --card: 30 8% 8%;
-  --card-foreground: 39 34% 94%;
-  --card-border: 39 21% 16%;
+  --background: 30 9% 6%;
+  --foreground: 39 34% 92%;
+  --border: 39 20% 22%;
+  --input: 39 16% 25%;
+  --ring: 39 60% 56%;
+  --card: 30 8% 9%;
+  --card-foreground: 39 34% 92%;
+  --card-border: 39 21% 20%;
   --primary: 39 67% 59%;
-  --primary-foreground: 30 9% 5%;
-  --secondary: 30 7% 12%;
-  --secondary-foreground: 39 30% 90%;
-  --muted: 32 8% 14%;
-  --muted-foreground: 36 13% 66%;
+  --primary-foreground: 30 9% 6%;
+  --secondary: 30 7% 13%;
+  --secondary-foreground: 39 30% 88%;
+  --muted: 32 8% 16%;
+  --muted-foreground: 36 13% 64%;
   --accent: 14 34% 28%;
-  --accent-foreground: 39 50% 92%;
+  --accent-foreground: 39 50% 90%;
   --destructive: 0 52% 45%;
-  --destructive-foreground: 39 34% 94%;
-  --sidebar: 30 9% 5%;
-  --sidebar-foreground: 39 34% 94%;
-  --sidebar-border: 39 21% 16%;
+  --destructive-foreground: 39 34% 92%;
+  --sidebar: 30 9% 6%;
+  --sidebar-foreground: 39 34% 92%;
+  --sidebar-border: 39 21% 20%;
   --sidebar-primary: 39 67% 59%;
-  --sidebar-primary-foreground: 30 9% 5%;
-  --sidebar-accent: 30 7% 12%;
-  --sidebar-accent-foreground: 39 34% 94%;
-  --sidebar-ring: 39 67% 59%;
-  --app-font-sans: 'DM Sans', 'Inter', sans-serif;
-  --app-font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --sidebar-primary-foreground: 30 9% 6%;
+  --sidebar-accent: 30 7% 13%;
+  --sidebar-accent-foreground: 39 34% 92%;
+  --sidebar-ring: 39 60% 56%;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Instrument Serif', Georgia, serif;
   --app-font-mono: 'Space Mono', monospace;
   --radius: 0.35rem;
 }
 
+.dark {
+  --background: 30 9% 6%;
+  --foreground: 39 34% 92%;
+  --border: 39 20% 22%;
+  --input: 39 16% 25%;
+  --ring: 39 60% 56%;
+  --card: 30 8% 9%;
+  --card-foreground: 39 34% 92%;
+  --card-border: 39 21% 20%;
+  --primary: 39 67% 59%;
+  --primary-foreground: 30 9% 6%;
+  --secondary: 30 7% 13%;
+  --secondary-foreground: 39 30% 88%;
+  --muted: 32 8% 16%;
+  --muted-foreground: 36 13% 64%;
+  --accent: 14 34% 28%;
+  --accent-foreground: 39 50% 90%;
+  --destructive: 0 52% 45%;
+  --destructive-foreground: 39 34% 92%;
+  --sidebar: 30 9% 6%;
+  --sidebar-foreground: 39 34% 92%;
+  --sidebar-border: 39 21% 20%;
+  --sidebar-primary: 39 67% 59%;
+  --sidebar-primary-foreground: 30 9% 6%;
+  --sidebar-accent: 30 7% 13%;
+  --sidebar-accent-foreground: 39 34% 92%;
+  --sidebar-ring: 39 60% 56%;
+}
+
 @layer base {
   * { @apply border-border; }
-  html { scroll-behavior: smooth; background-color: #0b0a09; }
-  body { @apply font-sans antialiased bg-[#0b0a09] text-[#faf6ee]; min-height: 100vh; }
-  ::selection { background: hsl(var(--primary) / 0.28); color: #ffffff; }
+  html { scroll-behavior: smooth; background: hsl(var(--background)); }
+  body { @apply font-sans antialiased bg-background text-foreground; }
+  ::selection { background: hsl(var(--primary) / .22); color: hsl(var(--foreground)); }
 }
 
 @layer utilities {
   .font-display { font-family: var(--app-font-serif); }
-  .font-sans-ui { font-family: var(--app-font-sans); }
   .font-mono-ui { font-family: var(--app-font-mono); }
   .text-gold { color: hsl(var(--primary)); }
-  .bg-ink { background-color: #0b0a09; }
-  .line-gold { background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.45), transparent); }
-  .hairline { border-color: hsl(var(--primary) / 0.24); }
+  .bg-ink { background-color: hsl(var(--background)); }
+  .line-gold { background: hsl(var(--primary) / .38); }
+  .hairline { border-color: hsl(var(--primary) / .24); }
   .reveal { animation: reveal .7s cubic-bezier(.22,.7,.2,1) both; }
   .reveal-delay-1 { animation-delay: .08s; }
   .reveal-delay-2 { animation-delay: .16s; }
@@ -84,7 +113,7 @@
 }
 
 @keyframes reveal {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -94,35 +123,19 @@
   inset: 0;
   pointer-events: none;
   z-index: 50;
-  opacity: .03;
+  opacity: .035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
 }
 
-.page-shell { width: min(100% - 2.5rem, 1280px); margin-inline: auto; }
-.section-rule { height: 1px; background: linear-gradient(90deg, transparent, hsl(var(--primary) / .38), transparent); }
-
-.gold-button {
-  transition: all .25s ease;
-}
-.gold-button:hover {
-  transform: translateY(-2px);
-}
-
-.card-hover {
-  transition: transform .35s cubic-bezier(.22,.7,.2,1), border-color .35s ease, box-shadow .35s ease;
-}
-.card-hover:hover {
-  transform: translateY(-4px);
-  border-color: rgba(220, 165, 75, 0.45);
-  box-shadow: 0 14px 35px rgba(220, 165, 75, 0.08);
-}
-
+.page-shell { width: min(100% - 2.5rem, 1240px); margin-inline: auto; }
+.section-rule { height: 1px; background: linear-gradient(90deg, transparent, hsl(var(--primary) / .42), transparent); }
+.gold-button { transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .25s ease; }
+.gold-button:hover { transform: translateY(-2px); }
 .image-lift img { transition: transform .7s cubic-bezier(.22,.7,.2,1), filter .7s ease; }
-.image-lift:hover img { transform: scale(1.04); filter: saturate(1.06); }
-
+.image-lift:hover img { transform: scale(1.045); filter: saturate(1.08); }
 .nav-link { transition: color .2s ease; }
 .nav-link:hover, .nav-link[data-active='true'] { color: hsl(var(--primary)); }
 
 @media (max-width: 640px) {
-  .page-shell { width: min(100% - 2rem, 1280px); }
+  .page-shell { width: min(100% - 2rem, 1240px); }
 }
