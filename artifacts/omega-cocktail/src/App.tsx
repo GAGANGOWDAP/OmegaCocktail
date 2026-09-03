@@ -286,7 +286,7 @@ function Footer() {
 
   return (
     <footer className="mt-24 border-t border-border/80 bg-secondary/40">
-      <div className="page-shell grid gap-10 py-14 sm:gap-12 md:grid-cols-[1.3fr_1fr_1fr] lg:grid-cols-[1.4fr_1fr_1fr]">
+      <div className="page-shell grid gap-10 py-14 sm:gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_1fr_1.2fr]">
         {/* Column 1: Logo & Description */}
         <div>
           <Logo />
@@ -371,6 +371,26 @@ function Footer() {
               <span>mjsince1987@gmail.com</span>
               <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-primary transition-all duration-300 ease-out group-hover:w-full" aria-hidden="true" />
             </a>
+          </div>
+        </div>
+
+        {/* Column 4: Location & Square Google Map */}
+        <div>
+          <p className="font-mono-ui text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
+            Location
+          </p>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            Ejipura, Bengaluru-560047
+          </p>
+          <div className="mt-4 overflow-hidden rounded-sm border border-border/80 bg-black aspect-square w-36 max-w-full shadow-lg">
+            <iframe
+              title="OMEGA Studio Location Map"
+              src="https://maps.google.com/maps?q=Ejipura,%20Bengaluru&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              className="h-full w-full border-0 brightness-[.85] contrast-[1.1] opacity-80 transition-opacity hover:opacity-100"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              data-testid="footer-google-map"
+            />
           </div>
         </div>
       </div>
