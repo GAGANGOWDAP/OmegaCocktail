@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   Check,
   ChevronDown,
+  Instagram,
   Mail,
   MapPin,
   Menu,
@@ -385,8 +386,53 @@ function Footer() {
   );
 }
 
+function FloatingSocials() {
+  return (
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+      {/* WhatsApp Floating Button */}
+      <a
+        href="https://wa.me/918971825137?text=Hi%20OMEGA%20COCKTAIL.CO%2C%20I%20would%20like%20to%20enquire%20about%20your%20services."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative grid h-11 w-11 place-items-center rounded-full border border-primary/50 bg-background/90 text-primary backdrop-blur-md shadow-2xl transition-all duration-300 hover:scale-110 hover:border-[#25D366] hover:bg-[#25D366] hover:text-white"
+        aria-label="Chat on WhatsApp"
+        data-testid="floating-whatsapp"
+      >
+        <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347m-5.421 7.461c-1.926 0-3.708-.518-5.247-1.42l-.376-.222-3.899 1.022 1.04-3.801-.244-.388c-1.002-1.597-1.533-3.468-1.532-5.389 0-5.447 4.433-9.88 9.883-9.88 2.64 0 5.12 1.028 6.985 2.894 1.864 1.866 2.89 4.348 2.889 6.988-.001 5.449-4.435 9.881-9.884 9.881m0-21.681C5.698.162.16 5.699.16 12.535c0 2.185.57 4.32 1.652 6.197L0 24l5.426-1.423c1.796.979 3.821 1.496 5.88 1.498h.005c6.837 0 12.375-5.538 12.376-12.374 0-3.305-1.287-6.413-3.626-8.752A12.316 12.316 0 0 0 12.051.162" />
+        </svg>
+        <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-md border border-border bg-card px-2.5 py-1 text-[10px] font-mono-ui uppercase tracking-wider text-foreground opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+          Chat on WhatsApp
+        </span>
+      </a>
+
+      {/* Instagram Floating Button */}
+      <a
+        href="https://instagram.com/omegacocktail.co"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative grid h-11 w-11 place-items-center rounded-full border border-primary/50 bg-background/90 text-primary backdrop-blur-md shadow-2xl transition-all duration-300 hover:scale-110 hover:border-[#E4405F] hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white"
+        aria-label="Follow on Instagram"
+        data-testid="floating-instagram"
+      >
+        <Instagram size={20} />
+        <span className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-md border border-border bg-card px-2.5 py-1 text-[10px] font-mono-ui uppercase tracking-wider text-foreground opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+          Follow on Instagram
+        </span>
+      </a>
+    </div>
+  );
+}
+
 function Shell({ children }: { children: ReactNode }) {
-  return <div className="grain min-h-[100dvh] overflow-x-hidden"><Header /><main>{children}</main><Footer /></div>;
+  return (
+    <div className="grain min-h-[100dvh] overflow-x-hidden">
+      <Header />
+      <main>{children}</main>
+      <Footer />
+      <FloatingSocials />
+    </div>
+  );
 }
 
 function SectionHeading({ kicker, title, body, align = 'left' }: { kicker: string; title: string; body?: string; align?: 'left' | 'center' }) {
