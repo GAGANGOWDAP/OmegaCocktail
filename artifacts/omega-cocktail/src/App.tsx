@@ -428,7 +428,7 @@ function FloatingSocials() {
 
       {/* Instagram Floating Button */}
       <a
-        href="https://instagram.com/omegacocktail.co"
+        href="https://www.instagram.com/omegacocktails.co?igsi=MmFoZGl5aTBjNzN3"
         target="_blank"
         rel="noopener noreferrer"
         className="group relative grid h-11 w-11 place-items-center rounded-full border border-primary/50 bg-background/90 text-primary backdrop-blur-md shadow-2xl transition-all duration-300 hover:scale-110 hover:border-[#E4405F] hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:text-white"
